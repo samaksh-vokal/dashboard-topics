@@ -1,0 +1,130 @@
+<div>
+	<div class="row">
+		<div class="col-xs-4 col-md-4">
+			<div class="fileUpload btn btn-primary">
+				<span>Upload CSV</span>
+				<input id="FileUploadInput" multiple type="file" onchange="angular.element(this).scope().fileChanged(this)" accept="*.csv"
+					class="upload" />
+			</div>
+		</div>
+		<div class="col-xs-4 col-md-4">
+			<h4>Upload Content <small>use prescribed CSV file only</small></h4>
+		</div>
+		<div class="col-xs-4 col-md-4">
+			<input type="text" class="form-control topMargin " ng-model="queryBar" placeholder="Search Content">
+		</div>
+	</div>
+
+	<!--<input ng-model="photo" onchange="angular.element(this).scope().fileChanged(this)" type="file" accept="*.csv" />-->
+
+	<div class="row">
+		<div class="col-md-4">
+			
+		</div>
+		<div class="col-md-4">
+			
+		</div>
+		<div class="col-md-4">
+
+		</div>
+	</div>
+<hr/>
+
+	<!--<input id="FileUploadInput" multiple type="file" onchange="angular.element(this).scope().fileChanged(this)" accept="*.csv"
+		class="bottomMargin" />-->
+
+	<table class="table table-bordered table-hover table-condensed table-striped table-responsive" ng-if="data.length">
+		<tr style="font-weight: bold">
+			<td>Handle</td>
+			<td>Title</td>
+			<td>Type</td>
+			<td>Lang</td>
+			<td>Certificate</td>
+			<td>Category</td>
+			<td>Comment</td>
+			<td>Payload</td>
+			<td>img</td>
+			<td>Edit</td>
+		</tr>
+
+		<tr ng-repeat="x in data | filter:queryBar">
+			<td>
+				<!-- editable username (text with validation) -->
+				<span editable-text="x.handle" e-name="handle" e-form="rowform">
+					<!--onbeforesave="checkName($data, user.id)"-->
+					{{ x.handle || '' }}
+				</span>
+			</td>
+			<td>
+				<!-- editable status (select-local) -->
+				<span editable-text="x.title" e-name="status" e-form="rowform">
+					{{ x.title || '' }}
+				</span>
+			</td>
+			<td>
+				<!-- editable group (select-remote) -->
+				<span editable-text="x.type" e-name="type" e-form="rowform">
+					{{ x.type || '' }}
+				</span>
+			</td>
+			<td>
+				<!-- editable group (select-remote) -->
+				<span editable-text="x.lang" e-name="lang" e-form="rowform">
+					{{ x.lang || '' }}
+				</span>
+			</td>
+			<td>
+				<!-- editable group (select-remote) -->
+				<span editable-text="x.certificate" e-name="certificate" e-form="rowform">
+					{{ x.certificate || '' }}
+				</span>
+			</td>
+			<td>
+				<!-- editable group (select-remote) -->
+				<span editable-text="x.category" e-name="category" e-form="rowform">
+					{{ x.category || '' }}
+				</span>
+			</td>
+			<td>
+				<!-- editable group (select-remote) -->
+				<span editable-text="x.comment" e-name="comment" e-form="rowform">
+					{{ x.comment || '' }}
+				</span>
+			</td>
+			<td>
+				<!-- editable group (select-remote) -->
+				<span editable-text="x.payload" e-name="payload" e-form="rowform">
+					{{ x.payload || '' }}
+				</span>
+			</td>
+			<td>
+				<!-- editable group (select-remote) -->
+				<span editable-text="x.img" e-name="img" e-form="rowform">
+					{{ x.img || '' }}
+				</span>
+			</td>
+
+			<td style="white-space: nowrap">
+				<!-- form -->
+				<form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline">
+					<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+            		save
+          </button>
+					<button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+            		cancel
+          </button>
+					<button type="button" ng-disabled="rowform.$waiting" ng-click="deleteElement(x.contentId)" class="btn btn-danger">
+            		Delete
+          </button>
+				</form>
+				<div class="buttons" ng-show="!rowform.$visible">
+					<button class="btn btn-primary" id="{{ 'editBtn-' + $index }}" ng-click="rowform.$show()">edit</button>
+					<!--<button class="btn btn-danger" ng-click="removeUser($index)">del</button>-->
+					<button class="btn btn-primary" id="{{ 'submitBtn-' + $index }}" ng-click="addToList(x,$index)">Submit</button>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+	<img src="images/plus.png" alt="Add Row" ng-click="emptyRow()" class="medWidth"/>
+</div>

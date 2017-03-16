@@ -1,0 +1,184 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-1 col-md-1">
+			<h4>Handles</h4>
+		</div>
+		<div class="col-xs-3 col-md-2">
+			<input type="text" class="form-control topMargin " ng-model="queryHandles" placeholder="Search Handles">
+		</div>
+		<div class="col-xs-3 col-md-1">
+		</div>
+		<div class="col-xs-4 col-md-4">
+			<h4>View Content</h4>
+		</div>
+		<div class="col-xs-4 col-md-4">
+			<input type="text" class="form-control topMargin " ng-model="queryBar" placeholder="Search Content">
+		</div>
+	</div>
+	<hr/>
+	<div class="row">
+		<div class="col-xs-3 col-md-3 topMargin">
+			<div ng-repeat="data in channelD.channels | filter:queryHandles">
+				<div class="well well-sm" ng-click=getChannelData(data.handle) id="{{data.name}}">
+					<ul class="list-inline">
+						<li>
+							<img ng-src="{{data.logo}}" alt="{{data.name}}" class="img-circle upMedWidth" />
+						</li>
+						<li>
+							<ul>
+								<li>
+									{{data.handle}}
+								</li>
+								<li>
+									{{data.name}}
+								</li>
+								<li>
+									{{data.desc}}
+								</li>
+							</ul>
+
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class=" col-xs-9 col-md-9 ">
+			<div class="topMargin ">
+				<!--<table class="table table-bordered table-hover table-condensed table-striped table-responsive ">
+					<thead>
+						<tr>
+							<th>Handle</th>
+							<th>Title</th>
+							<th>Type</th>
+							<th>Comment</th>
+							<th>Payload</th>
+							<th>img</th>
+							<th>Lang</th>
+							<th>Certificate</th>
+							<th>Category</th>
+						</tr>
+
+					</thead>
+					<tbody>
+						<tr ng-repeat="data in contentData | filter:queryBar ">
+							<td>{{data.handle}}</td>
+							<td>{{data.title}}</td>
+							<td>{{data.type}}</td>
+
+							<td>{{data.is_comment}}</td>
+							<td>
+								<audio id="{{audioP + $index}}" preload="metadata" type="audio/mp3" controls="controls">
+									<source ng-src="{{data.data.payload}}" type="audio/mp3" /> Your browser doesn't support the HTML audio tag. Be sad.
+								</audio>
+							</td>
+							<td>{{data.data.img}}</td>
+							<td>{{data.lang}}</td>
+							<td>{{data.certificate}}</td>
+							<td>{{data.category}}</td>
+						</tr>
+					</tbody>
+				</table>-->
+
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover table-condensed table-striped table-responsive">
+						<thead>
+							<tr>
+								<th>Handle</th>
+								<th>Title</th>
+								<th>Type</th>
+								<th>Comment</th>
+								<th>Payload</th>
+								<th>img</th>
+								<th>Lang</th>
+								<th>Certificate</th>
+								<th>Category</th>
+								<th>Edit</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="data in contentData | filter:queryBar">
+
+								<td>
+									<!-- editable username (text with validation) -->
+									<!--<span editable-text="data.handle" e-name="handle" e-form="rowform">-->
+										<!--onbeforesave="checkName($data, user.id)"-->
+										{{ data.handle || '' }}
+									<!--</span>-->
+								</td>
+								<td class="maxWidthSmall">
+									<!-- editable status (select-local) -->
+									<span editable-text="data.title" e-name="title" e-form="rowform">
+										{{ data.title || '' }}
+									</span>
+								</td>
+								<td>
+									<!-- editable group (select-remote) -->
+									<span editable-text="data.type" e-name="type" e-form="rowform">
+										{{ data.type || '' }}
+									</span>
+								</td>
+								<td>
+									<!-- editable group (select-remote) -->
+									<span editable-text="data.is_comment" e-name="is_comment" e-form="rowform">
+										{{ data.is_comment || '' }}
+									</span>
+								</td>
+								<td >
+									<audio id="{{audioP + $index}}" preload="metadata" type="audio/mp3" controls="controls">
+										<source ng-src="{{data.data.payload}}" type="audio/mp3" /> Your browser doesn't support the HTML audio tag. Be sad.
+									</audio>
+								</td>
+								<td class="maxWidthSmall">
+									<!-- editable group (select-remote) -->
+									<span editable-text="data.data.img" e-name="img" e-form="rowform">
+										{{ data.data.img || '' }}
+									</span>
+								</td>
+								<td>
+									<!-- editable group (select-remote) -->
+									<span editable-text="data.lang" e-name="lang" e-form="rowform">
+										{{ data.lang || '' }}
+									</span>
+								</td>
+								<td>
+									<!-- editable group (select-remote) -->
+									<span editable-text="data.certificate" e-name="certificate" e-form="rowform">
+										{{ data.certificate || '' }}
+									</span>
+								</td>
+								<td>
+									<!-- editable group (select-remote) -->
+									<span editable-text="data.category" e-name="category" e-form="rowform">
+										{{ data.category || '' }}
+									</span>
+								</td>
+
+								<td style="white-space: nowrap">
+									<!-- form -->
+									<form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline">
+										<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+													save
+										</button>
+										<button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+													cancel
+										</button>
+										<button type="button" ng-disabled="rowform.$waiting" ng-click="deleteElement(data)" class="btn btn-danger">
+													Delete
+										</button>
+									</form>
+									<div class="buttons" ng-show="!rowform.$visible">
+										<button class="btn btn-primary" id="{{ 'editBtn-' + $index }}" ng-click="rowform.$show()">edit</button>
+										<!--<button class="btn btn-danger" ng-click="removeUser($index)">del</button>-->
+										<button class="btn btn-primary" id="{{ 'updateBtn-' + $index }}" ng-click="updateElement(data,$index)">Update</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

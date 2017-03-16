@@ -1,0 +1,189 @@
+<div class="row">
+	<div class="col-xs-4 col-md-4">
+		<img src='./images/plus.png' alt='createChannel' class="medWidth" data-toggle="modal" data-target="#myModal"><span><h4> <small>Create Channel</small></h4><span>
+	</div>
+	<div class="col-xs-4 col-md-4">
+		<!--data-toggle="modal" data-target="#myModal"-->
+        
+	</div>
+	<div class="col-xs-6 col-md-4">
+        <input type="text" class="form-control " ng-model="queryBar" placeholder="Search Channel">
+    </div>
+</div>
+
+<!--<button class="btn btn-primary btn-lg" >
+   Add New Channel
+</button>-->
+
+<div ng-if="channelContentList.length" class="topMargin">
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover table-condensed table-striped table-responsive">
+			<thead>
+				<tr>
+					<th>Handle</th>
+					<th>Username</th>
+					<th>Name</th>
+					<th>City</th>
+					<th>State</th>
+					<th>Country</th>
+					<th>Logo</th>
+					<th>Banner</th>
+					<th>Edit</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in channelContentList | filter:queryBar">
+
+			<td>
+				<!-- editable username (text with validation) -->
+				<span editable-text="x.handle" e-name="handle" e-form="rowform">
+					<!--onbeforesave="checkName($data, user.id)"-->
+					{{ x.handle || '' }}
+				</span>
+		</td>
+		<td>
+			<!-- editable status (select-local) -->
+			<span editable-text="x.username" e-name="username" e-form="rowform">
+					{{ x.username || '' }}
+				</span>
+		</td>
+		<td>
+			<!-- editable group (select-remote) -->
+			<span editable-text="x.name" e-name="name" e-form="rowform">
+					{{ x.name || '' }}
+				</span>
+		</td>
+		<td>
+			<!-- editable group (select-remote) -->
+			<span editable-text="x.city" e-name="city" e-form="rowform">
+					{{ x.city || '' }}
+				</span>
+		</td>
+		<td>
+			<!-- editable group (select-remote) -->
+			<span editable-text="x.state" e-name="state" e-form="rowform">
+					{{ x.state || '' }}
+				</span>
+		</td>
+		<td>
+			<!-- editable group (select-remote) -->
+			<span editable-text="x.country" e-name="country" e-form="rowform">
+					{{ x.country || '' }}
+				</span>
+		</td>
+		<td>
+			<!-- editable group (select-remote) -->
+			<span editable-text="x.logo" e-name="logo" e-form="rowform">
+					{{ x.logo || '' }}
+				</span>
+		</td>
+		<td>
+			<!-- editable group (select-remote) -->
+			<span editable-text="x.badge" e-name="payload" e-form="rowform">
+					{{ x.badge || '' }}
+				</span>
+		</td>
+
+		<td style="white-space: nowrap">
+			<!-- form -->
+			<form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline">
+				<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+            		save
+          </button>
+				<button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+            		cancel
+          </button>
+				<button type="button" ng-disabled="rowform.$waiting" ng-click="deleteElement(x.contentId)" class="btn btn-danger">
+            		Delete
+          </button>
+			</form>
+			<div class="buttons" ng-show="!rowform.$visible">
+				<button class="btn btn-primary" id="{{ 'editBtn-' + $index }}" ng-click="rowform.$show()">edit</button>
+				<!--<button class="btn btn-danger" ng-click="removeUser($index)">del</button>-->
+				<button class="btn btn-primary" id="{{ 'submitBtn-' + $index }}" ng-click="createNewChannel(x,$index)">Submit</button>
+			</div>
+		</td>
+		</tr>
+		</tbody>
+		</table>
+	</div>
+</div>
+
+
+
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Add Channel</h4>
+			</div>
+			<div class="modal-body">
+
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputHandle" class="col-sm-2 control-label">Handle</label>
+
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="inputHandle" ng-model="channel.handle" placeholder="Handle">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputUsername" class="col-sm-2 control-label">Username</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="inputUsername" ng-model="channel.username" placeholder="Username">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputName" class="col-sm-2 control-label">Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="inputName" ng-model="channel.name" placeholder="Name" >
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputCity" class="col-sm-2 control-label">City</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="inputCity" ng-model="channel.city" placeholder="City" >
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputState" class="col-sm-2 control-label">State</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="inputState" ng-model="channel.state" placeholder="State" >
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputCountry" class="col-sm-2 control-label">Country</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="inputCountry" ng-model="channel.country" placeholder="Country" >
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputLogo" class="col-sm-2 control-label">Logo</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="inputLogo" ng-model="channel.logo" placeholder="Logo" >
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inputBanner" class="col-sm-2 control-label">Banner</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="inputBanner" ng-model="channel.banner" placeholder="Banner" >
+						</div>
+					</div>
+
+					<!--<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-5">
+							<button type="submit" class="btn btn-primary" ng-click=addChannel(channel)>Create Channel</button>
+						</div>
+					</div>-->
+
+					<div class="form-inline">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" id="submitbtn" class="form-control btn-btn-primary" ng-click="addChannel(channel)">Create Channel</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

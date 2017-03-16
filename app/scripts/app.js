@@ -1,0 +1,96 @@
+'use strict';
+
+/**
+ * @ngdoc overview
+ * @name okTalkApp
+ * @description
+ * # okTalkApp
+ *
+ * Main module of the application.
+ */
+angular
+  .module('okTalkApp', [
+    'ngAnimate',
+    'ngAria',
+    'ngCookies',
+    'ngResource',
+    'ngRoute',
+    'ngSanitize',
+    'ngTouch',
+    'xeditable',
+    'ui.bootstrap'
+  ])
+  .config(function ($routeProvider) {
+    $routeProvider
+      .when('/', {
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl',
+        controllerAs: 'main'
+      })
+      .when('/about', {
+        templateUrl: 'views/about.html',
+        controller: 'AboutCtrl',
+        controllerAs: 'about'
+      })
+      .when('/channel', {
+        templateUrl: 'views/channel.html',
+        controller: 'ChannelCtrl',
+        controllerAs: 'channel'
+      })
+      .when('/channelEdit', {
+        templateUrl: 'views/channeledit.html',
+        controller: 'ChanneleditCtrl',
+        controllerAs: 'channelEdit'
+      })
+      .when('/message', {
+        templateUrl: 'views/message.html',
+        controller: 'MessageCtrl',
+        controllerAs: 'message'
+      })
+      .when('/topic', {
+        templateUrl: 'views/topic.html',
+        controller: 'TopicCtrl',
+        controllerAs: 'topic'
+      })
+      .when('/topicview', {
+        templateUrl: 'views/topicview.html',
+        controller: 'TopicViewCtrl',
+        controllerAs: 'topicview'
+      })
+      .otherwise({
+        redirectTo: '/'
+      });
+  })
+  .run(function (editableOptions) {
+    editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+  })
+.directive('bsNavbar', ['$location', function ($location) {
+  return {
+    restrict: 'A',
+    link: function postLink(scope, element) {
+      scope.$watch(function () {
+        return $location.path();
+      }, function (path) {
+        angular.forEach(element.children(), (function (li) {
+          var $li = angular.element(li),
+            regex = new RegExp('^' + $li.attr('data-match-route') + '$', 'i'),
+            isActive = regex.test(path);
+          $li.toggleClass('active', isActive);
+        }));
+      });
+    }
+  };
+}])
+.config(function($sceDelegateProvider) {
+  $sceDelegateProvider.resourceUrlWhitelist([
+    // Allow same origin resource loads.
+    'self',
+    // Allow loading from our assets domain.  Notice the difference between * and **.
+    'https://s3-ap-southeast-1.amazonaws.com/**'
+  ]);
+
+  // The blacklist overrides the whitelist so the open redirect here is blocked.
+  $sceDelegateProvider.resourceUrlBlacklist([
+    //'http://myapp.example.com/clickThru**'
+  ]);
+});
