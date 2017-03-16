@@ -142,7 +142,7 @@ angular.module('okTalkApp')
 
       apiFactory.doPostCall('http://api.oktalk.com/ver2/channels/admin/1/handle', channel).then(function (response) {
         $scope.isContentAvailable = response.data;
-        $scope.channel = angular.copy($scope.intial);
+        $scope.channel = angular.copy($scope.initial);
         document.getElementById('submitBtn-' + $index).className = "btn btn-success";
         document.getElementById('submitBtn-' + $index).innerHTML = "Success";
 

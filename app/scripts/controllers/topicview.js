@@ -52,18 +52,18 @@ angular.module('okTalkApp')
     };
 
     $scope.dateOptions = {
-      dateDisabled: disabled,
+      // dateDisabled: disabled,
       formatYear: 'yy',
       maxDate: new Date(2020, 5, 22),
-      minDate: new Date(),
+      // minDate: new Date(),
       startingDay: 1
     };
     // Disable weekend selection
-    function disabled(data) {
-      var date = data.date,
-        mode = data.mode;
-      return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-    }
+    // function disabled(data) {
+    //   var date = data.date,
+    //     mode = data.mode;
+    //   return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+    // }
     $scope.open2 = function () {
       $scope.popup2.opened = true;
     };
@@ -165,7 +165,10 @@ angular.module('okTalkApp')
           "description": "let me know your pet name",
           "default_text": "question from shahid",
           "creator": "namit",
-          "created_at": "2017-03-15T08:52:49Z"
+          "created_at": "2017-03-15T08:52:49Z",
+          "meta_1":"meta tag 1",
+          "meta_2":"meta tag 2",
+          "weightage":3
         }
       ]
     }

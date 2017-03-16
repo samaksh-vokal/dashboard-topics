@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="row">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="inputurl" class="col-sm-2 control-label">mp3 url</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputurl" ng-model="data.theme.url" placeholder="mp3 url">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputTitle" class="col-sm-2 control-label">Title</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputTitle" ng-model="data.caption" placeholder="Title">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="content_id" class="col-sm-2 control-label">Content Id</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputContentId" ng-model="data.theme.content_id" placeholder="content id">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputImg" class="col-sm-2 control-label">Img url</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputImg" ng-model="data.theme.img" placeholder="image url">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputType" class="col-sm-2 control-label">handle</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputType" ng-model="data.theme.handle" placeholder="Type">
+                </div>
+            </div>
+
+            <div class="form-inline">
+                <!--<button type="button" id="hideBtnModal" class="form-control btn btn-alert margin40" ng-click="clearValue()">clear</button>-->
+                <button type="submit" id="submitbtn" class="form-control btn-primary" ng-click="createAudiogram()">Create Audiogram</button>
+            </div>
+        </form>
+        <div id="response">
+            <textarea ng-model="response" rows="4" cols="50"></textarea>
+        </div>
+    </div>
+</div>

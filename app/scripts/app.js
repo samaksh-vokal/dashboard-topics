@@ -57,6 +57,11 @@ angular
         controller: 'TopicViewCtrl',
         controllerAs: 'topicview'
       })
+       .when('/audiogram', {
+        templateUrl: 'views/audiogram.html',
+        controller: 'AudiogramCtrl',
+        controllerAs: 'audiogram'
+      })
       .otherwise({
         redirectTo: '/'
       });

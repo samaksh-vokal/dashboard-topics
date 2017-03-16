@@ -54,12 +54,13 @@
                         <th>voice_desc</th>
                         <th>Title</th>
                         <th>n_vokes</th>
-                        <th>Voice_desc</th>
                         <th>language</th>
                         <th>image</th>
                         <th>Default Text</th>
                         <th>Weightage</th>
                         <th>activate Date</th>
+                        <th>Meta 1</th>
+                        <th>Meta 2</th>
                         <th>Edit</th>
                     </tr>
                 </thead>
@@ -71,40 +72,30 @@
                             </audio>
                         </td>
                         <td>
-                            <!-- editable status (select-local) -->
                             <span editable-text="x.title" e-name="title" e-form="rowform">
                                 {{ x.title || '' }}
                             </span>
                         </td>
                         <td>
+                            {{ x.n_vokes || '' }}
+                        </td>
+                         <td>
                             <!-- editable group (select-remote) -->
-                            <span editable-text="x.langModel" e-name="langModel" e-form="rowform">
-					{{ x.n_vokes || '' }}
-				</span>
+                            <span editable-text="x.language" e-name="img" e-form="rowform">
+                                {{ x.language || '' }}
+                            </span>
                         </td>
                         <td>
                             <!-- editable group (select-remote) -->
-                            <span editable-text="x.voice_desc" e-name="voice_desc" e-form="rowform">
-					{{ x.voice_desc || '' }}
-				</span>
-                        </td>
-                        <td>
-                            <!-- editable group (select-remote) -->
-                            <span editable-text="x.img" e-name="img" e-form="rowform">
-					{{ x.img || '' }}
-				</span>
-                        </td>
-                        <td>
-                            <!-- editable group (select-remote) -->
-                            <span editable-text="x.type" e-name="type" e-form="rowform">
-					{{ x.type || '' }}
-				</span>
+                            <span editable-text="x.image" e-name="img" e-form="rowform">
+                                {{ x.image || '' }}
+                            </span>
                         </td>
                         <td>
                             <!-- editable group (select-remote) -->
                             <span editable-text="x.default_text" e-name="default_text" e-form="rowform">
-					{{ x.default_text || '' }}
-				</span>
+                                {{ x.default_text || '' }}
+                            </span>
                         </td>
                         <td>
                             <!-- editable group (select-remote) -->
@@ -114,9 +105,21 @@
                         </td>
                         <td>
                             <!-- editable group (select-remote) -->
-                            <span editable-text="x.dt" e-name="dt" e-form="rowform">
-					{{ x.dt || '' }}
-				</span>
+                            <span editable-text="x.created_at" e-name="created_at" e-form="rowform">
+                                {{ x.created_at || '' }}
+                            </span>
+                        </td>
+                           <td>
+                            <!-- editable group (select-remote) -->
+                            <span editable-text="x.meta_1" e-name="meta_1" e-form="rowform">
+                                {{ x.meta_1 || '' }}
+                            </span>
+                        </td>
+                           <td>
+                            <!-- editable group (select-remote) -->
+                            <span editable-text="x.meta_2" e-name="meta_2" e-form="rowform">
+                                {{ x.meta_2 || '' }}
+                            </span>
                         </td>
 
                         <td style="white-space: nowrap">
@@ -128,7 +131,7 @@
                                 <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
             		cancel
           </button>
-                                <button type="button" ng-disabled="rowform.$waiting" ng-click="deleteElement(x.uuid)" class="btn btn-danger">
+                                <button type="button" ng-disabled="rowform.$waiting" ng-click="deleteElement(x.topic_id)" class="btn btn-danger">
             		Delete
           </button>
                             </form>
