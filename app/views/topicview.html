@@ -1,1 +1,146 @@
-<p>wassup</p>
+<div class="row">
+    <div class="col-xs-12 col-sm-2">
+        <div class="form-group">
+            <label for="activate_from" class="col-sm-6 control-label">date 1</label>
+            <div class="col-sm-12">
+                <p class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt2" is-open="popup1.opened" datepicker-options="dateOptions"
+                        ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-2">
+        <div class="form-group">
+            <label for="activate_from" class="col-sm-6 control-label"> date 2</label>
+            <div class="col-sm-12">
+                <p class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt" is-open="popup2.opened" datepicker-options="dateOptions"
+                        ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-2">
+        <label for="inputLang" class="col-sm-2 control-label">Language</label>
+        <div class="col-sm-12">
+            <select ng-model="lang" ng-options="x for x in languages">
+          </select>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-2 topMargin">
+        <button type="button" class="btn btn-primary" ng-click="getData()">Submit</button>
+    </div>
+    <div class="col-xs-12 col-sm-3">
+        <input type="text" class="form-control " ng-model="queryBar" placeholder="Search Topic">
+    </div>
+
+
+</div>
+
+
+<div class="row">
+    <div ng-if="mydata.topics.length" class="topMargin">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th>voice_desc</th>
+                        <th>Title</th>
+                        <th>n_vokes</th>
+                        <th>Voice_desc</th>
+                        <th>language</th>
+                        <th>image</th>
+                        <th>Default Text</th>
+                        <th>Weightage</th>
+                        <th>activate Date</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in mydata.topics | filter:queryBar">
+                        <td>
+                            <audio id="audio+{{x.topic_id}}" preload="metadata" type="audio/mp3" controls="controls">
+                                <source ng-src="{{x.voice_desc}}" type="audio/mp3" /> Your browser doesn't support the HTML audio tag. Be sad.
+                            </audio>
+                        </td>
+                        <td>
+                            <!-- editable status (select-local) -->
+                            <span editable-text="x.title" e-name="title" e-form="rowform">
+                                {{ x.title || '' }}
+                            </span>
+                        </td>
+                        <td>
+                            <!-- editable group (select-remote) -->
+                            <span editable-text="x.langModel" e-name="langModel" e-form="rowform">
+					{{ x.n_vokes || '' }}
+				</span>
+                        </td>
+                        <td>
+                            <!-- editable group (select-remote) -->
+                            <span editable-text="x.voice_desc" e-name="voice_desc" e-form="rowform">
+					{{ x.voice_desc || '' }}
+				</span>
+                        </td>
+                        <td>
+                            <!-- editable group (select-remote) -->
+                            <span editable-text="x.img" e-name="img" e-form="rowform">
+					{{ x.img || '' }}
+				</span>
+                        </td>
+                        <td>
+                            <!-- editable group (select-remote) -->
+                            <span editable-text="x.type" e-name="type" e-form="rowform">
+					{{ x.type || '' }}
+				</span>
+                        </td>
+                        <td>
+                            <!-- editable group (select-remote) -->
+                            <span editable-text="x.default_text" e-name="default_text" e-form="rowform">
+					{{ x.default_text || '' }}
+				</span>
+                        </td>
+                        <td>
+                            <!-- editable group (select-remote) -->
+                            <span editable-text="x.weightage" e-name="weightage" e-form="rowform">
+					{{ x.weightage || '' }}
+				</span>
+                        </td>
+                        <td>
+                            <!-- editable group (select-remote) -->
+                            <span editable-text="x.dt" e-name="dt" e-form="rowform">
+					{{ x.dt || '' }}
+				</span>
+                        </td>
+
+                        <td style="white-space: nowrap">
+                            <!-- form -->
+                            <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline">
+                                <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+            		save
+          </button>
+                                <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+            		cancel
+          </button>
+                                <button type="button" ng-disabled="rowform.$waiting" ng-click="deleteElement(x.uuid)" class="btn btn-danger">
+            		Delete
+          </button>
+                            </form>
+                            <div class="buttons" ng-show="!rowform.$visible">
+                                <button class="btn btn-primary" id="{{ 'editBtn-' + $index }}" ng-click="rowform.$show()">edit</button>
+                                <!--<button class="btn btn-danger" ng-click="removeUser($index)">del</button>-->
+                                <button class="btn btn-primary" id="{{ 'submitBtn-' + $index }}" ng-click="createNewChannel(x,$index)">Submit</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
