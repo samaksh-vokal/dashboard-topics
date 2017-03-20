@@ -28,6 +28,8 @@
 					<th>Default Text</th>
 					<th>Weightage</th>
 					<th>activate Date</th>
+					<th>meta_1</th>
+					<th>meta_2</th>
 					<th>Edit</th>
 				</tr>
 			</thead>
@@ -48,15 +50,14 @@
 		</td>
 		<td>
 			<!-- editable group (select-remote) -->
-			<span editable-text="x.langModel" e-name="langModel" e-form="rowform">
-					{{ x.langModel || '' }}
+			<span editable-text="x.language" e-name="language" e-form="rowform">
+					{{ x.language || '' }}
 				</span>
 		</td>
 		<td>
-			<!-- editable group (select-remote) -->
-			<span editable-text="x.voice_desc" e-name="voice_desc" e-form="rowform">
-					{{ x.voice_desc || '' }}
-				</span>
+			<audio id="audio+{{x.topic_id}}" preload="metadata" type="audio/mp3" controls="controls">
+				<source ng-src="{{x.voice_desc}}" type="audio/mp3" /> Your browser doesn't support the HTML audio tag. Be sad.
+			</audio>
 		</td>
 		<td>
 			<!-- editable group (select-remote) -->
@@ -87,6 +88,18 @@
 			<span editable-text="x.dt" e-name="dt" e-form="rowform">
 					{{ x.dt || '' }}
 				</span>
+		</td>
+		<td>
+			<!-- editable group (select-remote) -->
+			<span editable-text="x.meta_1" e-name="meta_1" e-form="rowform">
+                                {{ x.meta_1 || '' }}
+                            </span>
+		</td>
+		<td>
+			<!-- editable group (select-remote) -->
+			<span editable-text="x.meta_2" e-name="meta_2" e-form="rowform">
+                                {{ x.meta_2 || '' }}
+                            </span>
 		</td>
 
 		<td style="white-space: nowrap">
@@ -140,12 +153,12 @@
 					<div class="form-group">
 						<label for="inputLang" class="col-sm-2 control-label">Language</label>
 						<div class="col-sm-10">
-							<pre>{{channel.langModel || 'English'}}</pre>
+							<pre>{{channel.language || 'English'}}</pre>
 							<!--<input type="text" class="form-control" id="inputLang" ng-model="channel.name" placeholder="Language" >-->
 							<div class="btn-group">
-								<label class="btn btn-success" ng-model="channel.langModel" uib-btn-radio="'English'" uncheckable>English</label>
-								<label class="btn btn-success" ng-model="channel.langModel" uib-btn-radio="'Kannada'" uncheckable>Kannada</label>
-								<label class="btn btn-success" ng-model="channel.langModel" uib-btn-radio="'Hindi'" uib-uncheckable="uncheckable">Hindi</label>
+								<label class="btn btn-success" ng-model="channel.language" uib-btn-radio="'en'" uncheckable>English</label>
+								<label class="btn btn-success" ng-model="channel.language" uib-btn-radio="'ka'" uncheckable>Kannada</label>
+								<label class="btn btn-success" ng-model="channel.language" uib-btn-radio="'hi'" uib-uncheckable="uncheckable">Hindi</label>
 							</div>
 						</div>
 					</div>
@@ -155,12 +168,16 @@
 							<input type="text" class="form-control" id="inputVoiceDesc" ng-model="channel.voice_desc" placeholder="Voice Desc">
 						</div>
 						<div class="col-sm-5">
-							<!--<input type="text" class="form-control" id="inputVoiceDesc" ng-model="channel.voice_desc" placeholder="Voice Desc">-->
-							<div class="fileUpload btn btn-primary">
-								<span>Upload desc file</span>
-								<input id="FileUploadInputDesc" multiple type="file" ng-file-select="onFileSelect($files)" accept="*"
-									class="upload" />
-							</div>
+							<button type="file" class="btn btn-primary" ngf-select="uploadFiles($file, $invalidFiles,'voice')" accept="audio/*" ngf-max-height="1000"
+								ngf-max-size="10MB">
+								Select desc</button>
+								<br><br> File:
+								<div style="font:smaller">{{f1.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+									<span class="progress" ng-show="f1.progress >= 0">
+								<div style="width:{{f1.progress}}%"  
+									ng-bind="f1.progress + '%'"></div>
+							</span>
+								</div>
 						</div>
 
 					</div>
@@ -169,13 +186,20 @@
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="inputImg" ng-model="channel.img" placeholder="Image">
 						</div>
+
 						<div class="col-sm-5">
-							<div class="fileUpload btn btn-primary">
-								<span>Upload Image file</span>
-								<input id="FileUploadInputImg" multiple type="file" ng-file-select="onFileSelect2($files)" accept="*"
-									class="upload" />
-							</div>
+							<button type="file" class="btn btn-primary" ngf-select="uploadFiles($file, $invalidFiles,'image')" accept="image/*" ngf-max-height="1000"
+								ngf-max-size="10MB">
+								Select Image</button>
+								<br><br> File:
+								<div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+									<span class="progress" ng-show="f.progress >= 0">
+								<div style="width:{{f.progress}}%"  
+									ng-bind="f.progress + '%'"></div>
+							</span>
+								</div>
 						</div>
+
 					</div>
 					<div class="form-group">
 						<label for="inputType" class="col-sm-2 control-label">Type</label>
@@ -207,6 +231,18 @@
             <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
 							</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="meta_1" class="col-sm-2 control-label">Meta -1 </label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="meta_1" ng-model="channel.meta_1" placeholder="meta keywords">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="meta_2" class="col-sm-2 control-label">Meta -2 </label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="meta_2" ng-model="channel.meta_2" placeholder="meta keywords">
 						</div>
 					</div>
 			</div>

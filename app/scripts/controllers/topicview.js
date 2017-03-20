@@ -35,14 +35,16 @@ angular.module('okTalkApp')
     $scope.today = function () {
       $scope.dt = new Date();
     };
-    $scope.languages = ['English', 'Kannada', 'Hindi'];
-    $scope.lang = 'English';
+    $scope.languages = ['en', 'ka', 'hi'];
+    $scope.lang = 'en';
     $scope.today();
 
     $scope.clear = function () {
       $scope.dt = null;
     };
     $scope.getData = function () {
+      console.log($scope.channel.dt);
+      console.log($scope.channel.dt2);
       console.log('yo got it');
     }
     $scope.inlineOptions = {
@@ -109,7 +111,7 @@ angular.module('okTalkApp')
         s4() + '-' + s4() + s4() + s4();
     }
     $scope.deleteElement = function (prop) {
-      $scope.data.splice(_.indexOf($scope.data, _.findWhere($scope.data, { uuid: prop })), 1);
+      $scope.mydata.topics.splice(_.indexOf($scope.data, _.findWhere($scope.mydata.topics, { uuid: prop })), 1);
     };
 
       $scope.createNewChannel = function (channel, $index) {

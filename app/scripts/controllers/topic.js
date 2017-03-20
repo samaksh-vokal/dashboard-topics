@@ -8,7 +8,7 @@
  * Controller of the okTalkApp
  */
 angular.module('okTalkApp')
-  .controller('TopicCtrl', ['$scope', 'apiFactory', function ($scope, apiFactory) {
+  .controller('TopicCtrl', ['$scope', 'apiFactory', 'Upload', '$timeout', function ($scope, apiFactory, Upload, $timeout) {
     angular.element(document).ready(function () {
       $scope.init();
     });
@@ -22,7 +22,7 @@ angular.module('okTalkApp')
 
     $scope.channelContentList = [];
 
-    $scope.langModel = 'English';
+    $scope.language = 'English';
 
     $scope.checkModel = {
       English: true,
@@ -55,6 +55,7 @@ angular.module('okTalkApp')
 
     $scope.addChannel = function (channel) {
       channel.uuid = $scope.uuid();
+      console.log(channel);
       // channel.langModel = $scope.checkResults[0];
       $scope.channelContentList.push(channel);
       console.log($scope.channelContentList);
@@ -137,10 +138,15 @@ angular.module('okTalkApp')
     }
 
     $scope.createNewChannel = function (channel, $index) {
+      var file = document.getElementById("inputImg");
+      file.value = file.defaultValue;
+      var voiceFile = document.getElementById('inputVoiceDesc');
+      voiceFile.value = voiceFile.defaultValue;
+
       document.getElementById('submitBtn-' + $index).className = "btn btn-primary disabled";
       document.getElementById('editBtn-' + $index).className = "btn btn-primary disabled";
 
-      apiFactory.doPostCall('http://api.oktalk.com/ver2/channels/admin/1/handle', channel).then(function (response) {
+      apiFactory.doPostCall('http://int.oktalk.com/web/channels/owner/topics/create', channel).then(function (response) {
         $scope.isContentAvailable = response.data;
         $scope.channel = angular.copy($scope.initial);
         document.getElementById('submitBtn-' + $index).className = "btn btn-success";
@@ -162,6 +168,41 @@ angular.module('okTalkApp')
         }, 3000);
       });
       $scope.channel = angular.copy($scope.intial);
+    }
+    $scope.uploadFiles = function (file, errFiles, filetype) {
+      var endpoint = (filetype == 'image') ? 'http://int.oktalk.com/web/channels/owner/topics/image/upload' : 'http://int.oktalk.com/web/channels/owner/topics/voice_desc/upload';
+      var isImage = (filetype == 'image') ? 1 : 0;
+      if (isImage) {
+        $scope.f = file;
+      } else {
+        $scope.f1 = file;
+      }
+
+      $scope.errFile = errFiles && errFiles[0];
+      if (file) {
+        file.upload = Upload.upload({
+          url: endpoint,
+          data: { content_file: file }
+        });
+
+        file.upload.then(function (response) {
+          $timeout(function () {
+            file.result = response.data;
+            if (isImage) {
+              $scope.channel.img = response.data.url;
+            } else {
+              $scope.channel.voice_desc = response.data.url;
+            }
+
+          });
+        }, function (response) {
+          if (response.status > 0)
+            $scope.errorMsg = response.status + ': ' + response.data;
+        }, function (evt) {
+          file.progress = Math.min(100, parseInt(100.0 *
+            evt.loaded / evt.total));
+        });
+      }
     }
 
     $scope.init = function () {

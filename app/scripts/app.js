@@ -18,7 +18,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'xeditable',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngFileUpload'
   ])
   .config(function ($routeProvider) {
     $routeProvider
