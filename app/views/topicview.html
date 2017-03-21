@@ -4,7 +4,7 @@
             <label for="activate_from" class="col-sm-6 control-label">from date</label>
             <div class="col-sm-12">
                 <p class="input-group">
-                    <input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt2" is-open="popup1.opened" datepicker-options="dateOptions"
+                    <input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt" is-open="popup1.opened" datepicker-options="dateOptions"
                         ng-required="true" close-text="Close" />
                     <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -18,7 +18,7 @@
             <label for="activate_from" class="col-sm-6 control-label"> to date</label>
             <div class="col-sm-12">
                 <p class="input-group">
-                    <input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt" is-open="popup2.opened" datepicker-options="dateOptions"
+                    <input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt2" is-open="popup2.opened" datepicker-options="dateOptions"
                         ng-required="true" close-text="Close" />
                     <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -51,6 +51,7 @@
             <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
                 <thead>
                     <tr>
+                        
                         <th>voice_desc</th>
                         <th>Title</th>
                         <th>n_vokes</th>
@@ -59,8 +60,7 @@
                         <th>Default Text</th>
                         <th>Weightage</th>
                         <th>activate Date</th>
-                        <th>Meta 1</th>
-                        <th>Meta 2</th>
+                        <th>hashtag</th>
                         <th>Edit</th>
                     </tr>
                 </thead>
@@ -111,14 +111,8 @@
                         </td>
                            <td>
                             <!-- editable group (select-remote) -->
-                            <span editable-text="x.meta_1" e-name="meta_1" e-form="rowform">
-                                {{ x.meta_1 || '' }}
-                            </span>
-                        </td>
-                           <td>
-                            <!-- editable group (select-remote) -->
-                            <span editable-text="x.meta_2" e-name="meta_2" e-form="rowform">
-                                {{ x.meta_2 || '' }}
+                            <span editable-text="x.hashtag" e-name="hashtag" e-form="rowform">
+                                {{ x.hashtag || '' }}
                             </span>
                         </td>
 
@@ -131,7 +125,7 @@
                                 <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
             		cancel
           </button>
-                                <button type="button" ng-disabled="rowform.$waiting" ng-click="deleteElement(x.topic_id)" class="btn btn-danger">
+                                <button type="button" ng-disabled="rowform.$waiting" id="{{ 'deleteBtn-' + $index }}"  ng-click="deleteElement(x,$index)" class="btn btn-danger">
             		Delete
           </button>
                             </form>

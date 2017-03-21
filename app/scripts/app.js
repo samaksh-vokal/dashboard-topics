@@ -24,9 +24,9 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+        templateUrl: 'views/topic.html',
+        controller: 'TopicCtrl',
+        controllerAs: 'topic'
       })
       .when('/about', {
         templateUrl: 'views/about.html',
@@ -99,4 +99,11 @@ angular
   $sceDelegateProvider.resourceUrlBlacklist([
     //'http://myapp.example.com/clickThru**'
   ]);
-});
+})
+.config(['$httpProvider', function ($httpProvider) {
+  //Reset headers to avoid OPTIONS request (aka preflight)
+  $httpProvider.defaults.headers.common = {};
+  $httpProvider.defaults.headers.post = {};
+  $httpProvider.defaults.headers.put = {};
+  $httpProvider.defaults.headers.patch = {};
+}]);

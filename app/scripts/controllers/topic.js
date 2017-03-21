@@ -22,13 +22,13 @@ angular.module('okTalkApp')
 
     $scope.channelContentList = [];
 
-    $scope.language = 'English';
+    $scope.channel.language = 'en';
 
-    $scope.checkModel = {
-      English: true,
-      Kannada: false,
-      Hindi: false
-    };
+    // $scope.checkModel = {
+    //   English: true,
+    //   Kannada: false,
+    //   Hindi: false
+    // };
 
     $scope.checkResults = [];
 
@@ -52,9 +52,25 @@ angular.module('okTalkApp')
       $scope.uploadProgress = 0;
       $scope.selectedFile = $files;
     };
+    function formatDate(date) {
+      var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+      if (month.length < 2) {
+        month = '0' + month;
+      }
+      if (day.length < 2) {
+        day = '0' + day;
+      }
+      return [year, month, day].join('-');
+    }
 
     $scope.addChannel = function (channel) {
       channel.uuid = $scope.uuid();
+      channel.created_at = formatDate($scope.channel.dt) + 'T00:00:00Z';
+      channel.weightage = parseInt(channel.weightage);
       console.log(channel);
       // channel.langModel = $scope.checkResults[0];
       $scope.channelContentList.push(channel);
@@ -72,6 +88,8 @@ angular.module('okTalkApp')
     $scope.clear = function () {
       $scope.dt = null;
     };
+
+
 
     $scope.inlineOptions = {
       customClass: getDayClass,
@@ -138,16 +156,27 @@ angular.module('okTalkApp')
     }
 
     $scope.createNewChannel = function (channel, $index) {
-      var file = document.getElementById("inputImg");
-      file.value = file.defaultValue;
-      var voiceFile = document.getElementById('inputVoiceDesc');
-      voiceFile.value = voiceFile.defaultValue;
-
+      console.log(channel);
+      var rv = {
+        ref_id:channel['ref_id'],
+        title:channel['title'],
+        language:channel['language'],
+        voice_desc:channel['voice_desc'],
+        image:channel['image'],
+        type:channel['type'],
+        default_text:channel['default_text'],
+        weightage:parseInt(channel['weightage']),
+        created_at:formatDate(channel['dt'])+ 'T00:00:00Z',
+        hashtag:channel['hashtag']
+      };
+      
+      
       document.getElementById('submitBtn-' + $index).className = "btn btn-primary disabled";
       document.getElementById('editBtn-' + $index).className = "btn btn-primary disabled";
 
-      apiFactory.doPostCall('http://int.oktalk.com/web/channels/owner/topics/create', channel).then(function (response) {
+      apiFactory.doPostCall('http://int.oktalk.com/web/channels/owner/topics/create', rv).then(function (response) {
         $scope.isContentAvailable = response.data;
+        console.log(response.data);
         $scope.channel = angular.copy($scope.initial);
         document.getElementById('submitBtn-' + $index).className = "btn btn-success";
         document.getElementById('submitBtn-' + $index).innerHTML = "Success";
@@ -164,14 +193,15 @@ angular.module('okTalkApp')
         document.getElementById('submitBtn-' + $index).innerHTML = "Failed";
         setTimeout(function () {
           document.getElementById('submitBtn-' + $index).className = "btn btn-primary";
+          document.getElementById('editBtn-' + $index).className = "btn btn-primary";
           document.getElementById('submitBtn-' + $index).innerHTML = "Submit";
         }, 3000);
       });
       $scope.channel = angular.copy($scope.intial);
-    }
+    };
     $scope.uploadFiles = function (file, errFiles, filetype) {
-      var endpoint = (filetype == 'image') ? 'http://int.oktalk.com/web/channels/owner/topics/image/upload' : 'http://int.oktalk.com/web/channels/owner/topics/voice_desc/upload';
-      var isImage = (filetype == 'image') ? 1 : 0;
+      var endpoint = (filetype === 'image') ? 'http://int.oktalk.com/web/channels/owner/topics/image/upload' : 'http://int.oktalk.com/web/channels/owner/topics/voice_desc/upload';
+      var isImage = (filetype === 'image') ? 1 : 0;
       if (isImage) {
         $scope.f = file;
       } else {
@@ -189,7 +219,7 @@ angular.module('okTalkApp')
           $timeout(function () {
             file.result = response.data;
             if (isImage) {
-              $scope.channel.img = response.data.url;
+              $scope.channel.image = response.data.url;
             } else {
               $scope.channel.voice_desc = response.data.url;
             }
@@ -203,7 +233,7 @@ angular.module('okTalkApp')
             evt.loaded / evt.total));
         });
       }
-    }
+    };
 
     $scope.init = function () {
 

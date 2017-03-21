@@ -137,11 +137,13 @@ angular.module('okTalkApp')
         if (!config) {
           config = {
             "headers": {
-              "content-type": "application/json",
+              "Content-Type": "application/json",
               "cache-control": "no-cache"
             }
           };
         }
+        console.log(config);
+        console.log(data);
 
         var deferred = $q.defer();
         $http.post(url, data, config)

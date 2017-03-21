@@ -13,7 +13,22 @@ angular.module('okTalkApp')
       $scope.init();
     });
     // var urlGetChannels = 'http://localhost:3000/getAllChannels';
+    function getDayClass(data) {
+      var date = data.date,
+        mode = data.mode;
+      if (mode === 'day') {
+        var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
 
+        for (var i = 0; i < $scope.events.length; i++) {
+          var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+
+          if (dayToCheck === currentDay) {
+            return $scope.events[i].status;
+          }
+        }
+      }
+      return '';
+    }
     $scope.initial = {};
 
     $scope.showModalAttr = 1;
@@ -43,15 +58,42 @@ angular.module('okTalkApp')
       $scope.dt = null;
     };
     $scope.getData = function () {
-      console.log($scope.channel.dt);
-      console.log($scope.channel.dt2);
-      console.log('yo got it');
-    }
+      var d1 = formatDate($scope.channel.dt) + 'T00:00:00Z';
+      var d2 = formatDate($scope.channel.dt2) + 'T00:00:00Z';
+      console.log(d1);
+      console.log(d2);
+      // var fromD = d1.getFullYear() + '-' + (d1.getMonth() + 1) + '-' + d1.getDate();
+      var url = 'http://int.oktalk.com/web/channels/topics?lang=' + $scope.lang + '&from_date=' + d1 + '&to_date=' + d2;
+      console.log(url);
+      apiFactory.doGetCall(url)
+        .then(function (response) {
+          $scope.mydata = response.data;
+        },
+        function (err) {
+          console.log(err);
+          $scope.mydata = '';
+        });
+    };
     $scope.inlineOptions = {
       customClass: getDayClass,
       minDate: new Date(),
       showWeeks: true
     };
+
+    function formatDate(date) {
+      var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+      if (month.length < 2) {
+        month = '0' + month;
+      }
+      if (day.length < 2) {
+        day = '0' + day;
+      }
+      return [year, month, day].join('-');
+    }
 
     $scope.dateOptions = {
       // dateDisabled: disabled,
@@ -85,22 +127,7 @@ angular.module('okTalkApp')
     $scope.popup1 = {
       opened: false
     };
-    function getDayClass(data) {
-      var date = data.date,
-        mode = data.mode;
-      if (mode === 'day') {
-        var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
 
-        for (var i = 0; i < $scope.events.length; i++) {
-          var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
-
-          if (dayToCheck === currentDay) {
-            return $scope.events[i].status;
-          }
-        }
-      }
-      return '';
-    }
     $scope.uuid = function () {
       function s4() {
         return Math.floor((1 + Math.random()) * 0x10000)
@@ -109,38 +136,64 @@ angular.module('okTalkApp')
       }
       return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
         s4() + '-' + s4() + s4() + s4();
-    }
-    $scope.deleteElement = function (prop) {
-      $scope.mydata.topics.splice(_.indexOf($scope.data, _.findWhere($scope.mydata.topics, { uuid: prop })), 1);
     };
 
-      $scope.createNewChannel = function (channel, $index) {
-        document.getElementById('submitBtn-' + $index).className = "btn btn-primary disabled";
-        document.getElementById('editBtn-' + $index).className = "btn btn-primary disabled";
-
-        apiFactory.doPostCall('http://api.oktalk.com/ver2/channels/admin/1/handle', channel).then(function (response) {
-          $scope.isContentAvailable = response.data;
-          $scope.channel = angular.copy($scope.intial);
-          document.getElementById('submitBtn-' + $index).className = "btn btn-success";
-          document.getElementById('submitBtn-' + $index).innerHTML = "Success";
-
-          setTimeout(function () {
-            document.getElementById('submitBtn-' + $index).className = "btn btn-primary";
-            document.getElementById('submitBtn-' + $index).innerHTML = "Submit";
-            document.getElementById('editBtn-' + $index).className = "btn btn-primary";
-          }, 3000);
-
-        }, function (err) {
-          console.log(err);
-          document.getElementById('submitBtn-' + $index).className = "btn btn-danger";
-          document.getElementById('submitBtn-' + $index).innerHTML = "Failed";
-          setTimeout(function () {
-            document.getElementById('submitBtn-' + $index).className = "btn btn-primary";
-            document.getElementById('submitBtn-' + $index).innerHTML = "Submit";
-          }, 3000);
-        });
+    $scope.deleteElement = function (channel, $index) {
+      console.log(channel);
+      channel.status = 0;
+      // $scope.mydata.topics.splice(_.indexOf($scope.data, _.findWhere($scope.mydata.topics, { uuid: prop })), 1);
+      apiFactory.doPostCall('http://int.oktalk.com//web/channels/owner/topics/edit', channel).then(function (response) {
+        $scope.isContentAvailable = response.data;
         $scope.channel = angular.copy($scope.intial);
-      }
+        document.getElementById('deleteBtn-' + $index).className = "btn btn-success";
+        document.getElementById('deleteBtn-' + $index).innerHTML = "deleted";
+
+        setTimeout(function () {
+          document.getElementById('deleteBtn-' + $index).className = "btn btn-danger";
+          document.getElementById('deleteBtn-' + $index).innerHTML = "delete";
+        }, 3000);
+
+      }, function (err) {
+        console.log(err);
+        document.getElementById('submitBtn-' + $index).className = "btn btn-danger";
+        document.getElementById('submitBtn-' + $index).innerHTML = "Fail delete";
+        setTimeout(function () {
+          document.getElementById('submitBtn-' + $index).className = "btn btn-danger";
+          document.getElementById('submitBtn-' + $index).innerHTML = "delete";
+        }, 3000);
+      });
+      $scope.channel = angular.copy($scope.intial);
+    };
+
+
+    $scope.createNewChannel = function (channel, $index) {
+      console.log(channel);
+      document.getElementById('submitBtn-' + $index).className = "btn btn-primary disabled";
+      document.getElementById('editBtn-' + $index).className = "btn btn-primary disabled";
+
+      apiFactory.doPostCall('http://int.oktalk.com//web/channels/owner/topics/edit', channel).then(function (response) {
+        $scope.isContentAvailable = response.data;
+        $scope.channel = angular.copy($scope.intial);
+        document.getElementById('submitBtn-' + $index).className = "btn btn-success";
+        document.getElementById('submitBtn-' + $index).innerHTML = "Success";
+
+        setTimeout(function () {
+          document.getElementById('submitBtn-' + $index).className = "btn btn-primary";
+          document.getElementById('submitBtn-' + $index).innerHTML = "Submit";
+          document.getElementById('editBtn-' + $index).className = "btn btn-primary";
+        }, 3000);
+
+      }, function (err) {
+        console.log(err);
+        document.getElementById('submitBtn-' + $index).className = "btn btn-danger";
+        document.getElementById('submitBtn-' + $index).innerHTML = "Failed";
+        setTimeout(function () {
+          document.getElementById('submitBtn-' + $index).className = "btn btn-primary";
+          document.getElementById('submitBtn-' + $index).innerHTML = "Submit";
+        }, 3000);
+      });
+      $scope.channel = angular.copy($scope.intial);
+    };
 
     $scope.init = function () {
 
@@ -168,11 +221,10 @@ angular.module('okTalkApp')
           "default_text": "question from shahid",
           "creator": "namit",
           "created_at": "2017-03-15T08:52:49Z",
-          "meta_1":"meta tag 1",
-          "meta_2":"meta tag 2",
-          "weightage":3
+          "hashtag": "meta tag 1",
+          "weightage": 3
         }
       ]
-    }
+    };
 
   }]);

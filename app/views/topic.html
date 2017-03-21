@@ -28,8 +28,7 @@
 					<th>Default Text</th>
 					<th>Weightage</th>
 					<th>activate Date</th>
-					<th>meta_1</th>
-					<th>meta_2</th>
+					<th>hashtag</th>
 					<th>Edit</th>
 				</tr>
 			</thead>
@@ -61,8 +60,8 @@
 		</td>
 		<td>
 			<!-- editable group (select-remote) -->
-			<span editable-text="x.img" e-name="img" e-form="rowform">
-					{{ x.img || '' }}
+			<span editable-text="x.image" e-name="img" e-form="rowform">
+					{{ x.image || '' }}
 				</span>
 		</td>
 		<td>
@@ -91,14 +90,8 @@
 		</td>
 		<td>
 			<!-- editable group (select-remote) -->
-			<span editable-text="x.meta_1" e-name="meta_1" e-form="rowform">
-                                {{ x.meta_1 || '' }}
-                            </span>
-		</td>
-		<td>
-			<!-- editable group (select-remote) -->
-			<span editable-text="x.meta_2" e-name="meta_2" e-form="rowform">
-                                {{ x.meta_2 || '' }}
+			<span editable-text="x.hashtag" e-name="hashtags" e-form="rowform">
+                                {{ x.hashtag || '' }}
                             </span>
 		</td>
 
@@ -153,11 +146,11 @@
 					<div class="form-group">
 						<label for="inputLang" class="col-sm-2 control-label">Language</label>
 						<div class="col-sm-10">
-							<pre>{{channel.language || 'English'}}</pre>
+							<pre>{{channel.language || 'en'}}</pre>
 							<!--<input type="text" class="form-control" id="inputLang" ng-model="channel.name" placeholder="Language" >-->
 							<div class="btn-group">
 								<label class="btn btn-success" ng-model="channel.language" uib-btn-radio="'en'" uncheckable>English</label>
-								<label class="btn btn-success" ng-model="channel.language" uib-btn-radio="'ka'" uncheckable>Kannada</label>
+								<label class="btn btn-success" ng-model="channel.language" uib-btn-radio="'kn'" uncheckable>Kannada</label>
 								<label class="btn btn-success" ng-model="channel.language" uib-btn-radio="'hi'" uib-uncheckable="uncheckable">Hindi</label>
 							</div>
 						</div>
@@ -184,7 +177,7 @@
 					<div class="form-group">
 						<label for="inputImg" class="col-sm-2 control-label">Img</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="inputImg" ng-model="channel.img" placeholder="Image">
+							<input type="text" class="form-control" id="inputImg" ng-model="channel.image" placeholder="Image">
 						</div>
 
 						<div class="col-sm-5">
@@ -234,19 +227,12 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="meta_1" class="col-sm-2 control-label">Meta -1 </label>
+						<label for="headers" class="col-sm-2 control-label">Hashtags </label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="meta_1" ng-model="channel.meta_1" placeholder="meta keywords">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="meta_2" class="col-sm-2 control-label">Meta -2 </label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="meta_2" ng-model="channel.meta_2" placeholder="meta keywords">
+							<input type="text" class="form-control" id="hashtag" ng-model="channel.hashtag" placeholder="hashtags">
 						</div>
 					</div>
 			</div>
-
 			<div class="form-inline">
 				<button type="button" id="hideBtnModal" class="btn btn-default" data-dismiss="modal">Close</button>
 				<button type="submit" id="submitbtn" class="form-control btn-btn-primary" ng-click="addChannel(channel)">Create Channel</button>

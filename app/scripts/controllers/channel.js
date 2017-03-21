@@ -36,7 +36,7 @@ angular.module('okTalkApp')
       document.getElementById('submitBtn-' + $index).className = "btn btn-primary disabled";
       document.getElementById('editBtn-' + $index).className = "btn btn-primary disabled";
 
-      apiFactory.doPostCall('http://api.oktalk.com/ver2/channels/admin/1/handle', channel).then(function (response) {
+      apiFactory.doPostCall('http://int.oktalk.com/ver2/channels/admin/1/handle', channel).then(function (response) {
         $scope.isContentAvailable = response.data;
         $scope.channel = angular.copy($scope.intial);
         document.getElementById('submitBtn-' + $index).className = "btn btn-success";
