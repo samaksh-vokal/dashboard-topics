@@ -63,7 +63,7 @@ angular.module('okTalkApp')
       console.log(d1);
       console.log(d2);
       // var fromD = d1.getFullYear() + '-' + (d1.getMonth() + 1) + '-' + d1.getDate();
-      var url = 'http://api.oktalk.com/web/channels/topics?lang=' + $scope.lang + '&from_date=' + d1 + '&to_date=' + d2;
+      var url = 'http://int.oktalk.com/web/channels/topics?lang=' + $scope.lang + '&from_date=' + d1 + '&to_date=' + d2;
       console.log(url);
       apiFactory.doGetCall(url)
         .then(function (response) {
@@ -142,7 +142,7 @@ angular.module('okTalkApp')
       console.log(channel);
       channel.status = 0;
       // $scope.mydata.topics.splice(_.indexOf($scope.data, _.findWhere($scope.mydata.topics, { uuid: prop })), 1);
-      apiFactory.doPostCall('http://api.oktalk.com//web/channels/owner/topics/edit', channel).then(function (response) {
+      apiFactory.doPostCall('http://int.oktalk.com//web/channels/owner/topics/edit', channel).then(function (response) {
         $scope.isContentAvailable = response.data;
         $scope.channel = angular.copy($scope.intial);
         document.getElementById('deleteBtn-' + $index).className = "btn btn-success";
@@ -171,7 +171,7 @@ angular.module('okTalkApp')
       document.getElementById('submitBtn-' + $index).className = "btn btn-primary disabled";
       document.getElementById('editBtn-' + $index).className = "btn btn-primary disabled";
 
-      apiFactory.doPostCall('http://api.oktalk.com//web/channels/owner/topics/edit', channel).then(function (response) {
+      apiFactory.doPostCall('http://int.oktalk.com//web/channels/owner/topics/edit', channel).then(function (response) {
         $scope.isContentAvailable = response.data;
         $scope.channel = angular.copy($scope.intial);
         document.getElementById('submitBtn-' + $index).className = "btn btn-success";

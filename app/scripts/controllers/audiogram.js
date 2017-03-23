@@ -84,7 +84,7 @@ angular.module('okTalkApp')
     $scope.str = "https://s3-ap-southeast-1.amazonaws.com/oktalk.video/";
 
     $scope.createAudiogram = function () {
-      $scope.data.caption = $scope.data.caption + " \n -@" + $scope.data.theme.handle;
+      $scope.data.caption = $scope.data.caption + " \n" + $scope.data.theme.handle;
       console.log($scope.data);
       document.getElementById('submitbtn').className = "form-control btn-primary disabled";
       //   document.getElementById('editBtn-' + $index).className = "btn btn-primary disabled";

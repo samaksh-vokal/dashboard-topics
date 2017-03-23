@@ -174,7 +174,7 @@ angular.module('okTalkApp')
       document.getElementById('submitBtn-' + $index).className = "btn btn-primary disabled";
       document.getElementById('editBtn-' + $index).className = "btn btn-primary disabled";
 
-      apiFactory.doPostCall('http://api.oktalk.com/web/channels/owner/topics/create', rv).then(function (response) {
+      apiFactory.doPostCall('http://int.oktalk.com/web/channels/owner/topics/create', rv).then(function (response) {
         $scope.isContentAvailable = response.data;
         console.log(response.data);
         $scope.channel = angular.copy($scope.initial);
@@ -200,7 +200,7 @@ angular.module('okTalkApp')
       $scope.channel = angular.copy($scope.intial);
     };
     $scope.uploadFiles = function (file, errFiles, filetype) {
-      var endpoint = (filetype === 'image') ? 'http://api.oktalk.com/web/channels/owner/topics/image/upload' : 'http://api.oktalk.com/web/channels/owner/topics/voice_desc/upload';
+      var endpoint = (filetype === 'image') ? 'http://int.oktalk.com/web/channels/owner/topics/image/upload' : 'http://int.oktalk.com/web/channels/owner/topics/voice_desc/upload';
       var isImage = (filetype === 'image') ? 1 : 0;
       if (isImage) {
         $scope.f = file;
