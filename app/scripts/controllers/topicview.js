@@ -50,7 +50,7 @@ angular.module('okTalkApp')
     $scope.today = function () {
       $scope.dt = new Date();
     };
-    $scope.languages = ['en', 'ka', 'hi'];
+    $scope.languages = ['en', 'kn', 'hi'];
     $scope.lang = 'en';
     $scope.today();
 
@@ -58,10 +58,12 @@ angular.module('okTalkApp')
       $scope.dt = null;
     };
     $scope.getData = function () {
+
       var d1 = formatDate($scope.channel.dt) + 'T00:00:00Z';
       var d2 = formatDate($scope.channel.dt2) + 'T00:00:00Z';
       console.log(d1);
       console.log(d2);
+      
       // var fromD = d1.getFullYear() + '-' + (d1.getMonth() + 1) + '-' + d1.getDate();
       var url = 'http://int.oktalk.com/web/channels/topics?lang=' + $scope.lang + '&from_date=' + d1 + '&to_date=' + d2;
       console.log(url);

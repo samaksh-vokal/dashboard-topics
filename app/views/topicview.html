@@ -51,7 +51,7 @@
             <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
                 <thead>
                     <tr>
-                        
+                        <th>Ref_id</th>
                         <th>voice_desc</th>
                         <th>Title</th>
                         <th>n_vokes</th>
@@ -66,6 +66,11 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="x in mydata.topics | filter:queryBar">
+                           <td>
+                             <span editable-text="x.ref_id" e-name="ref_id" e-form="rowform">
+                                {{ x.ref_id || '' }}
+                            </span>
+                        </td>
                         <td>
                             <audio id="audio+{{x.topic_id}}" preload="metadata" type="audio/mp3" controls="controls">
                                 <source ng-src="{{x.voice_desc}}" type="audio/mp3" /> Your browser doesn't support the HTML audio tag. Be sad.
