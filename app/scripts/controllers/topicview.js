@@ -209,23 +209,7 @@ angular.module('okTalkApp')
 
     $scope.mydata = {
       "topics": [
-        {
-          "voice_desc": "https://s3-ap-southeast-1.amazonaws.com/ok.talk.channels/abelmathews88/7717A30A-35EE-443A-86F4-51167714D233.mp3",
-          "topic_id": 19,
-          "title": "What is your pet name?",
-          "status": 1,
-          "n_vokes": 16,
-          "location": null,
-          "language": "kn",
-          "image": "http://static.bestmediainfo.com/wp-content/uploads/2016/07/the-baap-of-bollywood.jpg",
-          "hashtag": null,
-          "description": "let me know your pet name",
-          "default_text": "question from shahid",
-          "creator": "namit",
-          "created_at": "2017-03-15T08:52:49Z",
-          "hashtag": "meta tag 1",
-          "weightage": 3
-        }
+
       ]
     };
 

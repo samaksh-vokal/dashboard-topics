@@ -24,12 +24,6 @@ angular.module('okTalkApp')
 
     $scope.channel.language = 'en';
 
-    // $scope.checkModel = {
-    //   English: true,
-    //   Kannada: false,
-    //   Hindi: false
-    // };
-
     $scope.checkResults = [];
 
     $scope.deleteElement = function (prop) {
@@ -44,6 +38,7 @@ angular.module('okTalkApp')
         }
       });
     });
+
     $scope.onFileSelect = function ($files) {
       $scope.uploadProgress = 0;
       $scope.selectedFile = $files;
@@ -158,19 +153,19 @@ angular.module('okTalkApp')
     $scope.createNewChannel = function (channel, $index) {
       console.log(channel);
       var rv = {
-        ref_id:channel['ref_id'],
-        title:channel['title'],
-        language:channel['language'],
-        voice_desc:channel['voice_desc'],
-        image:channel['image'],
-        type:channel['type'],
-        default_text:channel['default_text'],
-        weightage:parseInt(channel['weightage']),
-        created_at:formatDate(channel['dt'])+ 'T00:00:00Z',
-        hashtag:channel['hashtag']
+        ref_id: channel['ref_id'],
+        title: channel['title'],
+        language: channel['language'],
+        voice_desc: channel['voice_desc'],
+        image: channel['image'],
+        type: channel['type'],
+        default_text: channel['default_text'],
+        weightage: parseInt(channel['weightage']),
+        created_at: formatDate(channel['dt']) + 'T00:00:00Z',
+        hashtag: channel['hashtag']
       };
-      
-      
+
+
       document.getElementById('submitBtn-' + $index).className = "btn btn-primary disabled";
       document.getElementById('editBtn-' + $index).className = "btn btn-primary disabled";
 
