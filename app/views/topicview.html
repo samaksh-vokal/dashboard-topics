@@ -44,6 +44,13 @@
 
 </div>
 
+<div class="row">
+    <div class="col-sm-6 col-xs-12">
+        <input type="text" ng-model="ref_id" class="form-control" placeholder="ref_id"/>
+    </div>
+</div>
+
+
 
 <div class="row">
     <div ng-if="mydata.topics.length" class="topMargin">
@@ -66,8 +73,8 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="x in mydata.topics | filter:queryBar">
-                           <td>
-                             <span editable-text="x.ref_id" e-name="ref_id" e-form="rowform">
+                        <td>
+                            <span editable-text="x.ref_id" e-name="ref_id" e-form="rowform">
                                 {{ x.ref_id || '' }}
                             </span>
                         </td>
@@ -84,7 +91,7 @@
                         <td>
                             {{ x.n_vokes || '' }}
                         </td>
-                         <td>
+                        <td>
                             <!-- editable group (select-remote) -->
                             <span editable-text="x.language" e-name="img" e-form="rowform">
                                 {{ x.language || '' }}
@@ -93,7 +100,7 @@
                         <td>
                             <!-- editable group (select-remote) -->
                             <span editable-text="x.image" e-name="img" e-form="rowform">
-                                {{ x.image || '' }}
+                                <img src="{{ x.image || '' }} " alt="topic image" height="80" width="80"/> 
                             </span>
                         </td>
                         <td>
@@ -114,7 +121,7 @@
                                 {{ x.created_at || '' }}
                             </span>
                         </td>
-                           <td>
+                        <td>
                             <!-- editable group (select-remote) -->
                             <span editable-text="x.hashtag" e-name="hashtag" e-form="rowform">
                                 {{ x.hashtag || '' }}
@@ -130,9 +137,10 @@
                                 <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
             		cancel
           </button>
-                                <button type="button" ng-disabled="rowform.$waiting" id="{{ 'deleteBtn-' + $index }}"  ng-click="deleteElement(x,$index)" class="btn btn-danger">
-            		Delete
-          </button>
+                                <button type="button" ng-disabled="rowform.$waiting" id="{{ 'deleteBtn-' + $index }}" ng-click="deleteElement(x,$index)"
+                                    class="btn btn-danger">
+                                    Delete
+                                    </button>
                             </form>
                             <div class="buttons" ng-show="!rowform.$visible">
                                 <button class="btn btn-primary" id="{{ 'editBtn-' + $index }}" ng-click="rowform.$show()">edit</button>

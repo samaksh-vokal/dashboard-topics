@@ -19,7 +19,8 @@ angular
     'ngTouch',
     'xeditable',
     'ui.bootstrap',
-    'ngFileUpload'
+    'ngFileUpload',
+    'ui.bootstrap.datetimepicker'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -58,7 +59,7 @@ angular
         controller: 'TopicViewCtrl',
         controllerAs: 'topicview'
       })
-       .when('/audiogram', {
+      .when('/audiogram', {
         templateUrl: 'views/audiogram.html',
         controller: 'AudiogramCtrl',
         controllerAs: 'audiogram'
@@ -70,40 +71,42 @@ angular
   .run(function (editableOptions) {
     editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
   })
-.directive('bsNavbar', ['$location', function ($location) {
-  return {
-    restrict: 'A',
-    link: function postLink(scope, element) {
-      scope.$watch(function () {
-        return $location.path();
-      }, function (path) {
-        angular.forEach(element.children(), (function (li) {
-          var $li = angular.element(li),
-            regex = new RegExp('^' + $li.attr('data-match-route') + '$', 'i'),
-            isActive = regex.test(path);
-          $li.toggleClass('active', isActive);
-        }));
-      });
-    }
-  };
-}])
-.config(function($sceDelegateProvider) {
-  $sceDelegateProvider.resourceUrlWhitelist([
-    // Allow same origin resource loads.
-    'self',
-    // Allow loading from our assets domain.  Notice the difference between * and **.
-    'https://s3-ap-southeast-1.amazonaws.com/**'
-  ]);
+  .directive('bsNavbar', ['$location', function ($location) {
+    return {
+      restrict: 'A',
+      link: function postLink(scope, element) {
+        scope.$watch(function () {
+          return $location.path();
+        }, function (path) {
+          angular.forEach(element.children(), (function (li) {
+            var $li = angular.element(li),
+              regex = new RegExp('^' + $li.attr('data-match-route') + '$', 'i'),
+              isActive = regex.test(path);
+            $li.toggleClass('active', isActive);
+          }));
+        });
+      }
+    };
+  }])
+  .config(function ($sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist([
+      // Allow same origin resource loads.
+      'self',
+      // Allow loading from our assets domain.  Notice the difference between * and **.
+      'https://s3-ap-southeast-1.amazonaws.com/**'
+    ]);
 
-  // The blacklist overrides the whitelist so the open redirect here is blocked.
-  $sceDelegateProvider.resourceUrlBlacklist([
-    //'http://myapp.example.com/clickThru**'
-  ]);
-})
-.config(['$httpProvider', function ($httpProvider) {
-  //Reset headers to avoid OPTIONS request (aka preflight)
-  $httpProvider.defaults.headers.common = {};
-  $httpProvider.defaults.headers.post = {};
-  $httpProvider.defaults.headers.put = {};
-  $httpProvider.defaults.headers.patch = {};
-}]);
+    // The blacklist overrides the whitelist so the open redirect here is blocked.
+    $sceDelegateProvider.resourceUrlBlacklist([
+      //'http://myapp.example.com/clickThru**'
+    ]);
+  })
+  .config(['$httpProvider', function ($httpProvider) {
+    //Reset headers to avoid OPTIONS request (aka preflight)
+    $httpProvider.defaults.headers.common = {};
+    $httpProvider.defaults.headers.post = {};
+    $httpProvider.defaults.headers.put = {};
+    $httpProvider.defaults.headers.patch = {};
+    $httpProvider.defaults.headers.options = {};
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+  }]);

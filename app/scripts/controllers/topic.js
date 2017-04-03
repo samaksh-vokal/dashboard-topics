@@ -11,6 +11,7 @@ angular.module('okTalkApp')
   .controller('TopicCtrl', ['$scope', 'apiFactory', 'Upload', '$timeout', function ($scope, apiFactory, Upload, $timeout) {
     angular.element(document).ready(function () {
       $scope.init();
+
     });
     // var urlGetChannels = 'http://localhost:3000/getAllChannels';
 
@@ -61,16 +62,37 @@ angular.module('okTalkApp')
       }
       return [year, month, day].join('-');
     }
+    function formatTime(date) {
+      var d = new Date(date);
+      var hours = d.getHours() > 9 ? d.getHours() : '0' + d.getHours();
+      var mins = d.getMinutes() > 9 ? d.getMinutes() : '0' + d.getMinutes();
+      var secs = d.getSeconds() > 9 ? d.getSeconds() : '0' + d.getSeconds();
+
+      return hours + ':' + mins + ':' + secs;
+    }
+
+    function formatTimeToStr(time) {
+      var d = new Date(time);
+      var h = d.getUTCHours();
+      var m = d.getUTCMinutes();
+      var day = d.getUTCDay();
+      var tStr = m + ' ' + h + ' * * ' + day;
+      console.log(tStr);
+      return tStr;
+    }
 
     $scope.addChannel = function (channel) {
+      console.log($scope.channel);
+      console.log($scope.channel.dt)
       channel.uuid = $scope.uuid();
-      channel.created_at = formatDate($scope.channel.dt) + 'T00:00:00Z';
+      channel.created_at = formatDate($scope.channel.dt) + 'T' + formatTime($scope.channel.dt) + 'Z';
       channel.weightage = parseInt(channel.weightage);
       console.log(channel);
       // channel.langModel = $scope.checkResults[0];
       $scope.channelContentList.push(channel);
       console.log($scope.channelContentList);
-      $scope.channel = angular.copy($scope.init);
+      console.log($scope.init())
+      $scope.channel = [];
       $scope.hideModal();
     };
 
@@ -161,15 +183,17 @@ angular.module('okTalkApp')
         type: channel['type'],
         default_text: channel['default_text'],
         weightage: parseInt(channel['weightage']),
-        created_at: formatDate(channel['dt']) + 'T00:00:00Z',
-        hashtag: channel['hashtag']
+        created_at: formatDate(channel.dt) + 'T' + formatTime(channel.dt) + 'Z',
+        hashtag: channel['hashtag'],
+        message: channel['message'],
+        to: channel['to'],
+        time: formatTimeToStr(channel.time)
       };
-
 
       document.getElementById('submitBtn-' + $index).className = "btn btn-primary disabled";
       document.getElementById('editBtn-' + $index).className = "btn btn-primary disabled";
 
-      apiFactory.doPostCall('http://int.oktalk.com/web/channels/owner/topics/create', rv).then(function (response) {
+      apiFactory.doPostCall('http://api.oktalk.com/web/channels/owner/topics/create', rv).then(function (response) {
         $scope.isContentAvailable = response.data;
         console.log(response.data);
         $scope.channel = angular.copy($scope.initial);
@@ -195,7 +219,7 @@ angular.module('okTalkApp')
       $scope.channel = angular.copy($scope.intial);
     };
     $scope.uploadFiles = function (file, errFiles, filetype) {
-      var endpoint = (filetype === 'image') ? 'http://int.oktalk.com/web/channels/owner/topics/image/upload' : 'http://int.oktalk.com/web/channels/owner/topics/voice_desc/upload';
+      var endpoint = (filetype === 'image') ? 'http://api.oktalk.com/web/channels/owner/topics/image/upload' : 'http://api.oktalk.com/web/channels/owner/topics/voice_desc/upload';
       var isImage = (filetype === 'image') ? 1 : 0;
       if (isImage) {
         $scope.f = file;
@@ -231,7 +255,6 @@ angular.module('okTalkApp')
     };
 
     $scope.init = function () {
-
     };
     // $scope.isContentAvailable = "false";
 

@@ -143,7 +143,9 @@ angular.module('okTalkApp')
           };
         }
         console.log(config);
-        console.log(data);
+        // console.log((JSON.stringify(data)));
+
+        // data = JSON.stringify(data);
 
         var deferred = $q.defer();
         $http.post(url, data, config)
