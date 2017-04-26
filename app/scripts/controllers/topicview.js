@@ -36,7 +36,7 @@ angular.module('okTalkApp')
     $scope.isContentAvailable = [];
 
     $scope.channelContentList = [];
-
+    $scope.ref_id = '';
     $scope.addChannel = function (channel) {
       channel.uuid = $scope.uuid();
       $scope.channelContentList.push(channel);
@@ -59,13 +59,21 @@ angular.module('okTalkApp')
     };
     $scope.getData = function () {
 
-      var d1 = formatDate($scope.channel.dt) + 'T00:00:00Z';
-      var d2 = formatDate($scope.channel.dt2) + 'T00:00:00Z';
-      console.log(d1);
-      console.log(d2);
-
       // var fromD = d1.getFullYear() + '-' + (d1.getMonth() + 1) + '-' + d1.getDate();
-      var url = 'http://api.oktalk.com/web/channels/topics?lang=' + $scope.lang + '&from_date=' + d1 + '&to_date=' + d2;
+      var a = '';
+
+      if (isNaN($scope.channel.dt)) {
+        a = 'ref_id=' + $scope.ref_id;
+      } else if ($scope.ref_id == undefined || $scope.ref_id == '') {
+        var d1 = formatDate($scope.channel.dt) + 'T00:00:00Z';
+        var d2 = formatDate($scope.channel.dt2) + 'T00:00:00Z';
+        a = 'lang=' + $scope.lang + '&from_date=' + d1 + '&to_date=' + d2;
+      } else {
+        a = 'ref_id=' + $scope.ref_id;
+      }
+
+      var url = 'http://api.oktalk.com/web/channels/topics?' + a;
+
       console.log(url);
       apiFactory.doGetCall(url)
         .then(function (response) {
@@ -146,6 +154,7 @@ angular.module('okTalkApp')
       channel.status = 0;
       // $scope.mydata.topics.splice(_.indexOf($scope.data, _.findWhere($scope.mydata.topics, { uuid: prop })), 1);
       apiFactory.doPostCall('http://api.oktalk.com/web/channels/owner/topics/edit', channel).then(function (response) {
+
         $scope.isContentAvailable = response.data;
         $scope.channel = angular.copy($scope.intial);
         document.getElementById('deleteBtn-' + $index).className = "btn btn-success";

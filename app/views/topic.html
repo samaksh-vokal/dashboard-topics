@@ -9,7 +9,7 @@
         <input type="text" class="form-control " ng-model="queryBar" placeholder="Search Topic">
     </div>
 </div>
-
+<!--<datetimepicker data-ng-model="data.date"></datetimepicker>-->
 <!--<button class="btn btn-primary btn-lg" >
    Add New Channel
 </button>-->
@@ -29,6 +29,9 @@
 					<th>Weightage</th>
 					<th>activate Date</th>
 					<th>hashtag</th>
+					<th>Message</th>
+					<th>Notification</th>
+					<th>send To</th>
 					<th>Edit</th>
 				</tr>
 			</thead>
@@ -61,7 +64,7 @@
 		<td>
 			<!-- editable group (select-remote) -->
 			<span editable-text="x.image" e-name="img" e-form="rowform">
-					{{ x.image || '' }}
+					<img src="{{ x.image || '' }} "  alt="topic image" height="80" width="80"/> 
 				</span>
 		</td>
 		<td>
@@ -82,16 +85,41 @@
 					{{ x.weightage || '' }}
 				</span>
 		</td>
+
 		<td>
 			<!-- editable group (select-remote) -->
-			<span editable-text="x.dt" e-name="dt" e-form="rowform">
-					{{ x.dt || '' }}
-				</span>
+			<span editable-text="x.dt" e-name="hashtags" e-form="rowform">
+                                {{ x.dt | date:'yyyy-MM-dd HH:mm:ss' || '' }}
+                            </span>
 		</td>
+
 		<td>
 			<!-- editable group (select-remote) -->
 			<span editable-text="x.hashtag" e-name="hashtags" e-form="rowform">
                                 {{ x.hashtag || '' }}
+                            </span>
+		</td>
+
+		<td>
+			<!-- editable group (select-remote) -->
+			<span editable-text="x.message" e-name="hashtags" e-form="rowform">
+                                {{ x.message || '' }}
+                            </span>
+		</td>
+
+
+
+		<td>
+			<!-- editable group (select-remote) -->
+			<span editable-text="x.time" e-name="dt" e-form="rowform">
+					{{ x.time| date:'yyyy-MM-dd HH:mm:ss' || '' }}
+				</span>
+		</td>
+
+		<td>
+			<!-- editable group (select-remote) -->
+			<span editable-text="x.to" e-name="hashtags" e-form="rowform">
+                                {{ x.to }}
                             </span>
 		</td>
 
@@ -161,8 +189,8 @@
 							<input type="text" class="form-control" id="inputVoiceDesc" ng-model="channel.voice_desc" placeholder="Voice Desc">
 						</div>
 						<div class="col-sm-5">
-							<button type="file" class="btn btn-primary" ngf-select="uploadFiles($file, $invalidFiles,'voice')" accept="audio/*" ngf-max-height="1000"
-							 ngf-max-size="10MB">
+							<button type="file" class="btn btn-primary" ngf-select="uploadFiles($file, $invalidFiles,'voice')" accept="audio/*" ngf-max-height="10000"
+								ngf-max-size="10MB">
 								Select desc</button>
 							<br><br> File:
 							<div style="font:smaller">{{f1.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
@@ -181,8 +209,8 @@
 						</div>
 
 						<div class="col-sm-5">
-							<button type="file" class="btn btn-primary" ngf-select="uploadFiles($file, $invalidFiles,'image')" accept="image/*" ngf-max-height="1000"
-							 ngf-max-size="10MB">
+							<button type="file" class="btn btn-primary" ngf-select="uploadFiles($file, $invalidFiles,'image')" accept="image/*" ngf-max-height="10000"
+								ngf-max-size="10MB">
 								Select Image</button>
 							<br><br> File:
 							<div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
@@ -216,18 +244,53 @@
 
 					<div class="form-group">
 						<label for="activate_from" class="col-sm-2 control-label">activate from</label>
-						<div class="col-sm-10">
-							<p class="input-group">
-								<!--<input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt" is-open="popup2.opened" datepicker-options="dateOptions"
-									ng-required="true" close-text="Close" />-->
-								<input type="text" class="form-control" is-open="popup2.opened" datepicker-options="dateOptions"
-								 ng-required="true" close-text="Close" />
-								<span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-							</p>
+						<div class="dropdown col-sm-10">
+							<a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown">
+								<div class="input-group"><input type="text" class="form-control" data-ng-model="channel.dt"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+								</div>
+							</a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+								<datetimepicker data-ng-model="channel.dt" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }" />
+							</ul>
 						</div>
 					</div>
+					<hr/>
+
+					<div class="form-group">
+						<label for="Message" class="col-sm-2 control-label">Message</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="Message" ng-model="channel.message" placeholder="Message">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inputLang" class="col-sm-2 control-label">Send to</label>
+						<div class="col-sm-10">
+							<pre>{{channel.to || 'all'}}</pre>
+							<!--<input type="text" class="form-control" id="inputLang" ng-model="channel.name" placeholder="Language" >-->
+							<div class="btn-group">
+								<label class="btn btn-success" ng-model="channel.to" uib-btn-radio="'all'" uncheckable>All</label>
+								<label class="btn btn-success" ng-model="channel.to" uib-btn-radio="'even'" uncheckable>Even</label>
+								<label class="btn btn-success" ng-model="channel.to" uib-btn-radio="'odd'" uib-uncheckable="uncheckable">Odd</label>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="form-group">
+						<label for="notify_at" class="col-sm-2 control-label">Notifty at</label>
+						<div class="dropdown col-sm-10">
+							<a class="dropdown-toggle" id="dropdown3" role="button" data-toggle="dropdown">
+								<div class="input-group"><input type="text" class="form-control" data-ng-model="channel.time"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+								</div>
+							</a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+								<datetimepicker data-ng-model="channel.time" data-datetimepicker-config="{ dropdownSelector: '#dropdown3' }" />
+							</ul>
+						</div>
+					</div>
+
 					<div class="form-group">
 						<label for="headers" class="col-sm-2 control-label">Hashtags </label>
 						<div class="col-sm-10">
