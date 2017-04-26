@@ -162,15 +162,15 @@
 						</div>
 						<div class="col-sm-5">
 							<button type="file" class="btn btn-primary" ngf-select="uploadFiles($file, $invalidFiles,'voice')" accept="audio/*" ngf-max-height="1000"
-								ngf-max-size="10MB">
+							 ngf-max-size="10MB">
 								Select desc</button>
-								<br><br> File:
-								<div style="font:smaller">{{f1.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
-									<span class="progress" ng-show="f1.progress >= 0">
+							<br><br> File:
+							<div style="font:smaller">{{f1.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+								<span class="progress" ng-show="f1.progress >= 0">
 								<div style="width:{{f1.progress}}%"  
 									ng-bind="f1.progress + '%'"></div>
 							</span>
-								</div>
+							</div>
 						</div>
 
 					</div>
@@ -182,15 +182,15 @@
 
 						<div class="col-sm-5">
 							<button type="file" class="btn btn-primary" ngf-select="uploadFiles($file, $invalidFiles,'image')" accept="image/*" ngf-max-height="1000"
-								ngf-max-size="10MB">
+							 ngf-max-size="10MB">
 								Select Image</button>
-								<br><br> File:
-								<div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
-									<span class="progress" ng-show="f.progress >= 0">
+							<br><br> File:
+							<div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+								<span class="progress" ng-show="f.progress >= 0">
 								<div style="width:{{f.progress}}%"  
 									ng-bind="f.progress + '%'"></div>
 							</span>
-								</div>
+							</div>
 						</div>
 
 					</div>
@@ -218,8 +218,10 @@
 						<label for="activate_from" class="col-sm-2 control-label">activate from</label>
 						<div class="col-sm-10">
 							<p class="input-group">
-								<input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt" is-open="popup2.opened" datepicker-options="dateOptions"
-									ng-required="true" close-text="Close" />
+								<!--<input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt" is-open="popup2.opened" datepicker-options="dateOptions"
+									ng-required="true" close-text="Close" />-->
+								<input type="text" class="form-control" is-open="popup2.opened" datepicker-options="dateOptions"
+								 ng-required="true" close-text="Close" />
 								<span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
