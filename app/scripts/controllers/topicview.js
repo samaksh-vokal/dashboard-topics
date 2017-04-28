@@ -13,6 +13,8 @@ angular.module('okTalkApp')
       $scope.init();
     });
     // var urlGetChannels = 'http://localhost:3000/getAllChannels';
+    $scope.orderByField = 'title';
+    $scope.reverseSort = false;
     function getDayClass(data) {
       var date = data.date,
         mode = data.mode;
@@ -50,8 +52,8 @@ angular.module('okTalkApp')
     $scope.today = function () {
       $scope.dt = new Date();
     };
-    $scope.languages = ['en', 'kn', 'hi'];
-    $scope.lang = 'en';
+    $scope.languages = ['all', 'en', 'kn', 'hi'];
+    $scope.lang = 'all';
     $scope.today();
 
     $scope.clear = function () {
@@ -62,7 +64,7 @@ angular.module('okTalkApp')
       // var fromD = d1.getFullYear() + '-' + (d1.getMonth() + 1) + '-' + d1.getDate();
       var a = '';
 
-      if (isNaN($scope.channel.dt)) {
+      if ( $scope.channel == undefined || isNaN($scope.channel.dt) ) {
         a = 'ref_id=' + $scope.ref_id;
       } else if ($scope.ref_id == undefined || $scope.ref_id == '') {
         var d1 = formatDate($scope.channel.dt) + 'T00:00:00Z';
@@ -156,15 +158,15 @@ angular.module('okTalkApp')
       apiFactory.doPostCall('http://api.oktalk.com/web/channels/owner/topics/edit', channel).then(function (response) {
 
         $scope.isContentAvailable = response.data;
-        $scope.channel = angular.copy($scope.intial);
+        // $scope.channel = angular.copy($scope.intial);
         document.getElementById('deleteBtn-' + $index).className = "btn btn-success";
         document.getElementById('deleteBtn-' + $index).innerHTML = "deleted";
 
         setTimeout(function () {
           document.getElementById('deleteBtn-' + $index).className = "btn btn-danger";
           document.getElementById('deleteBtn-' + $index).innerHTML = "delete";
+          $scope.getData();
         }, 3000);
-
       }, function (err) {
         console.log(err);
         document.getElementById('submitBtn-' + $index).className = "btn btn-danger";
@@ -172,20 +174,21 @@ angular.module('okTalkApp')
         setTimeout(function () {
           document.getElementById('submitBtn-' + $index).className = "btn btn-danger";
           document.getElementById('submitBtn-' + $index).innerHTML = "delete";
+          $scope.getData();
         }, 3000);
       });
-      $scope.channel = angular.copy($scope.intial);
+      // $scope.channel = angular.copy($scope.intial);
     };
 
 
     $scope.createNewChannel = function (channel, $index) {
-      console.log(channel);
+      // console.log(channel);
       document.getElementById('submitBtn-' + $index).className = "btn btn-primary disabled";
       document.getElementById('editBtn-' + $index).className = "btn btn-primary disabled";
 
-      apiFactory.doPostCall('http://api.oktalk.com//web/channels/owner/topics/edit', channel).then(function (response) {
+      apiFactory.doPostCall('http://api.oktalk.com/web/channels/owner/topics/edit', channel).then(function (response) {
         $scope.isContentAvailable = response.data;
-        $scope.channel = angular.copy($scope.intial);
+        // $scope.channel = angular.copy($scope.intial);
         document.getElementById('submitBtn-' + $index).className = "btn btn-success";
         document.getElementById('submitBtn-' + $index).innerHTML = "Success";
 
@@ -193,6 +196,7 @@ angular.module('okTalkApp')
           document.getElementById('submitBtn-' + $index).className = "btn btn-primary";
           document.getElementById('submitBtn-' + $index).innerHTML = "Submit";
           document.getElementById('editBtn-' + $index).className = "btn btn-primary";
+          $scope.getData();
         }, 3000);
 
       }, function (err) {
@@ -201,10 +205,11 @@ angular.module('okTalkApp')
         document.getElementById('submitBtn-' + $index).innerHTML = "Failed";
         setTimeout(function () {
           document.getElementById('submitBtn-' + $index).className = "btn btn-primary";
-          document.getElementById('submitBtn-' + $index).innerHTML = "Submit";
+          document.getElementById('submitBtn-' + $index).innerHTML = "Submitted";
+          $scope.getData();
         }, 3000);
       });
-      $scope.channel = angular.copy($scope.intial);
+      // $scope.channel = angular.copy($scope.intial);
     };
 
     $scope.init = function () {

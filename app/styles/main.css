@@ -127,6 +127,12 @@ form .progress {
     background: orange;
     width: 0;
 }
+
+.smallpic{
+  width:100px;
+  height: 100px;
+  margin:10px;
+}
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {

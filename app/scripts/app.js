@@ -64,6 +64,11 @@ angular
         controller: 'AudiogramCtrl',
         controllerAs: 'audiogram'
       })
+       .when('/trending', {
+        templateUrl: 'views/trending.html',
+        controller: 'TrendingCtrl',
+        controllerAs: 'trending'
+      })
       .otherwise({
         redirectTo: '/'
       });

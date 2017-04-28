@@ -1,0 +1,120 @@
+<div class="row">
+
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div ng-if="trending.length" class="topMargin">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
+                    <thead>
+                        <tr>
+
+                            <th ng-click="orderByField='name'; reverseSort = !reverseSort">Name
+                                <span ng-show="orderByField == 'name'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+                            </th>
+
+                            <th ng-click="orderByField='url'; reverseSort = !reverseSort">url
+                                <span ng-show="orderByField == 'url'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+                            </th>
+
+                            <th ng-click="orderByField='tweet_volume'; reverseSort = !reverseSort">Total Tweets
+                                <span ng-show="orderByField == 'tweet_volume'"><span ng-show="!reverseSort">^</span>
+                                <span ng-show="reverseSort">v</span>
+                                </span>
+                            </th>
+
+                            <th>query</th>
+                            <th>Create Topic</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in trending">
+                            <td>
+                                <span editable-text="x.name" e-name="name" e-form="rowform">
+                                {{ x.name || '' }}
+                            </span>
+                            </td>
+                            <td style="max-width: 300px;word-wrap: break-word;">
+                                <a ng-href="{{ x.url|| ''}}">{{x.url}}</a></td>
+
+                            <td>
+                                <!-- editable group (select-remote) -->
+                                <!--<span editable-text="x.tweet_volume" e-name="img" e-form="rowform">-->
+                                {{ x.tweet_volume || '' }}
+                                <!--</span>-->
+                            </td>
+                            <td style="max-width: 300px;word-wrap: break-word;">
+                                {{ x.query || '' }}
+                            </td>
+
+
+                            <td style="white-space: nowrap">
+                                <!--<button class="btn btn-primary" id="{{ 'submitBtn-' + $index }}" data-toggle="modal" data-target="#myModal"><span><h4> <small>Create Topic</small></h4><span></button>-->
+                                <button class="btn btn-primary" id="{{ 'submitBtn-' + $index }}" ng-click="findItem(getThis())"> click me</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+    <!--<div id="map" class="col-sm-6">
+        this is map
+    </div>-->
+    <div id="topicDetails table-responsive" class="col-sm-6">
+        <div class="row" class="col-sm-12">
+            <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>url</th>
+                        <th>Total Tweets</th>
+                        <th>query</th>
+                        <th>image</th>
+                        <th>Create Topic</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span editable-text="item.name" e-name="name" e-form="rowform">
+                                {{ item.name || '' }}
+                            </span>
+                        </td>
+                        <td style="max-width: 300px;word-wrap: break-word;">
+                            <a ng-href="{{ item.url|| ''}}">{{item.url}}</a></td>
+
+                        <td>
+                            <!-- editable group (select-remote) -->
+                            <!--<span editable-text="x.tweet_volume" e-name="img" e-form="rowform">-->
+                            {{ item.tweet_volume || '' }}
+                            <!--</span>-->
+                        </td>
+                        <td style="max-width: 300px;word-wrap: break-word;">
+                            {{ item.query || '' }}
+                        </td>
+                        <td style="white-space: nowrap">
+                            {{item.img}}</td>
+                        <td style="white-space: nowrap">
+                            <!--<button class="btn btn-primary" id="{{ 'submitBtn-' + $index }}" data-toggle="modal" data-target="#myModal"><span><h4> <small>Create Topic</small></h4><span></button>-->
+                            <button class="btn btn-primary" id="{{ 'submitBtn-' + $index }}" ng-click=""> create me</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div ng-repeat="pic in pics">
+                    <div class="smallpic col-sm-3">
+
+                        <img ng-src="{{pic.contentUrl}}" alt="img" style="width: 100px;height:100px;word-wrap: break-word;" ng-click="setImageName('{{pic.contentUrl}}')">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

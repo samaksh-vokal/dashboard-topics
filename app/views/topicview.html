@@ -46,7 +46,7 @@
 
 <div class="row">
     <div class="col-sm-6 col-xs-12">
-        <input type="text" ng-model="ref_id" class="form-control" placeholder="ref_id"/>
+        <input type="text" ng-model="ref_id" class="form-control" placeholder="ref_id" />
     </div>
 </div>
 
@@ -58,21 +58,32 @@
             <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
                 <thead>
                     <tr>
-                        <th>Ref_id</th>
+                        <th ng-click="orderByField='ref_id'; reverseSort = !reverseSort">
+                            Ref_id
+                            <span ng-show="orderByField == 'ref_id'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+                        </th>
                         <th>voice_desc</th>
-                        <th>Title</th>
-                        <th>n_vokes</th>
-                        <th>language</th>
+                        <th ng-click="orderByField='title'; reverseSort = !reverseSort">Title
+                            <span ng-show="orderByField == 'title'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+                        </th>
+                        <th ng-click="orderByField='n_vokes'; reverseSort = !reverseSort">n_vokes
+                            <span ng-show="orderByField == 'n_vokes'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+                        </th>
+                        <th ng-click="orderByField='language'; reverseSort = !reverseSort">language
+                            <span ng-show="orderByField == 'language'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+                        </th>
                         <th>image</th>
                         <th>Default Text</th>
-                        <th>Weightage</th>
+                        <th ng-click="orderByField='weightage'; reverseSort = !reverseSort">Weightage
+                            <span ng-show="orderByField == 'weightage'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+                        </th>
                         <th>activate Date</th>
                         <th>hashtag</th>
                         <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="x in mydata.topics | filter:queryBar">
+                    <tr ng-repeat="x in mydata.topics | filter:queryBar |orderBy:orderByField:reverseSort">
                         <td>
                             <span editable-text="x.ref_id" e-name="ref_id" e-form="rowform">
                                 {{ x.ref_id || '' }}
