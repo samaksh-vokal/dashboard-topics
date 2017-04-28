@@ -1,7 +1,7 @@
 angular.module('okTalkApp')
     .controller('TrendingCtrl', ['$scope', 'apiFactory', function ($scope, apiFactory) {
         angular.element(document).ready(function () {
-            $scope.init();
+            // $scope.init();
         });
 
         $scope.trending = [];
@@ -39,7 +39,7 @@ angular.module('okTalkApp')
         };
 
         $scope.init = function () {
-            $scope.url = "http://localhost:3300/trending";
+            $scope.url = "http://localhost:3300/trending/"+$scope.sel;
             apiFactory.doGetCall($scope.url)
                 .then(function (response) {
                     console.log(response);
