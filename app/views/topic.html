@@ -174,12 +174,14 @@
 					<div class="form-group">
 						<label for="inputLang" class="col-sm-2 control-label">Language</label>
 						<div class="col-sm-10">
-							<pre>{{channel.language || 'en'}}</pre>
+							<pre>{{channel.language || 'kn'}}</pre>
 							<!--<input type="text" class="form-control" id="inputLang" ng-model="channel.name" placeholder="Language" >-->
 							<div class="btn-group">
-								<label class="btn btn-success" ng-model="channel.language" uib-btn-radio="'en'" uncheckable>English</label>
+								
 								<label class="btn btn-success" ng-model="channel.language" uib-btn-radio="'kn'" uncheckable>Kannada</label>
 								<label class="btn btn-success" ng-model="channel.language" uib-btn-radio="'hi'" uib-uncheckable="uncheckable">Hindi</label>
+								<label class="btn btn-success" ng-model="channel.language" uib-btn-radio="'ta'" uib-uncheckable="uncheckable">Tamil</label>
+								<label class="btn btn-success" ng-model="channel.language" uib-btn-radio="'en'" uncheckable>English</label>
 							</div>
 						</div>
 					</div>

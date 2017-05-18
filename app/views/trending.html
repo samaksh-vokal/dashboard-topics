@@ -1,6 +1,6 @@
-<div class="row">
+<!--<div class="row">
     <div class="col-xs-12 col-sm-2">
-        <label for="inputLang" class="col-sm-2 control-label">Select Place</label>
+        <label for="inputLang" class="col-sm-6 control-label">Select Place</label>
         <div class="col-sm-12">
             {{sel}}
             <select ng-model="sel">
@@ -9,125 +9,144 @@
                 <option value="23424848">India</option>
                 </select>
         </div>
-    </div>
+    </div>-->
 
-    <div class="col-xs-12 col-sm-2">
+<!--<div class="col-xs-12 col-sm-2">
         <button class="btn btn-primary" id="fetchDataBtn" ng-click="init()"> Fetch trends </button>
-    </div>
+    </div>-->
 
-</div>
+<!--</div>-->
 <div class="row">
-    <div class="col-sm-6">
-        <div ng-if="trending.length" class="topMargin">
-            <div class="table-responsive">
+    <div class="row">
+        <div class="col-sm-6">
+            <div ng-if="trending.length" class="topMargin">
+                <!--<div class="table-responsive">
+                    <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th ng-click="orderByField='name'; reverseSort = !reverseSort">Name
+                                    <span ng-show="orderByField == 'name'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+                                </th>
+
+                                <th ng-click="orderByField='url'; reverseSort = !reverseSort">url
+                                    <span ng-show="orderByField == 'url'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+                                </th>
+
+                                <th ng-click="orderByField='tweet_volume'; reverseSort = !reverseSort">Total Tweets
+                                    <span ng-show="orderByField == 'tweet_volume'"><span ng-show="!reverseSort">^</span>
+                                    <span ng-show="reverseSort">v</span>
+                                    </span>
+                                </th>
+
+                                <th>query</th>
+                                <th>Create Topic</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in trending">
+                                <td>
+                                    <span editable-text="x.name" e-name="name" e-form="rowform">
+                                {{ x.name || '' }}
+                            </span>
+                                </td>
+                                <td style="max-width: 300px;word-wrap: break-word;">
+                                    <a ng-href="{{ x.url|| ''}}">{{x.url}}</a></td>
+
+                                <td>
+                                    {{ x.tweet_volume || '' }}
+                                </td>
+                                <td style="max-width: 300px;word-wrap: break-word;">
+                                    {{ x.query || '' }}
+                                </td>
+
+
+                                <td style="white-space: nowrap">
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>-->
+                <div class="col-sm-12" ng-repeat="x in trending">
+                    <ul class="result-box" ng-click="findItem(getThis())">
+                        <li>
+                            <li class="result-box-name col-sm-8">{{ x.name || '' }}</li>
+                            
+                            <li class="col-sm-4 result-box-name">{{x.tweet_volume || '-'}} <span style="font-size:15px;color:black;">Tweets</span></li>
+                        </li>
+                        <li>Suggested Topic Name - ({{x.name}})</li>
+                        <li class="col-sm-12">URL: - <a ng-href="{{ x.url || '-' }}">link</a> </li>
+                        <li style="max-width: 300px;word-wrap: break-word;">query: - {{ x.query || '' }}</li>
+                        <!--<li><button class="btn btn-primary" id="{{ 'submitBtn-' + $index }}" ng-click="findItem(getThis())"> click me</button></li>-->
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row col-sm-6">
+            <div id="map-canvas"></div>
+        </div>
+        <!--<div id="map" class="col-sm-6">
+        this is map
+    </div>-->
+
+
+
+
+
+        <div id="topicDetails table-responsive" class="col-sm-6">
+
+            <div class="row" class="col-sm-12">
                 <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
                     <thead>
                         <tr>
-
-                            <th ng-click="orderByField='name'; reverseSort = !reverseSort">Name
-                                <span ng-show="orderByField == 'name'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
-                            </th>
-
-                            <th ng-click="orderByField='url'; reverseSort = !reverseSort">url
-                                <span ng-show="orderByField == 'url'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
-                            </th>
-
-                            <th ng-click="orderByField='tweet_volume'; reverseSort = !reverseSort">Total Tweets
-                                <span ng-show="orderByField == 'tweet_volume'"><span ng-show="!reverseSort">^</span>
-                                <span ng-show="reverseSort">v</span>
-                                </span>
-                            </th>
-
+                            <th>Name</th>
+                            <th>url</th>
+                            <th>Total Tweets</th>
                             <th>query</th>
+                            <th>image</th>
                             <th>Create Topic</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="x in trending">
+                        <tr>
                             <td>
-                                <span editable-text="x.name" e-name="name" e-form="rowform">
-                                {{ x.name || '' }}
+                                <span editable-text="item.name" e-name="name" e-form="rowform">
+                                {{ item.name || '' }}
                             </span>
                             </td>
                             <td style="max-width: 300px;word-wrap: break-word;">
-                                <a ng-href="{{ x.url|| ''}}">{{x.url}}</a></td>
+                                <a ng-href="{{ item.url|| ''}}">{{item.url}}</a></td>
 
                             <td>
                                 <!-- editable group (select-remote) -->
                                 <!--<span editable-text="x.tweet_volume" e-name="img" e-form="rowform">-->
-                                {{ x.tweet_volume || '' }}
+                                {{ item.tweet_volume || '' }}
                                 <!--</span>-->
                             </td>
                             <td style="max-width: 300px;word-wrap: break-word;">
-                                {{ x.query || '' }}
+                                {{ item.query || '' }}
                             </td>
-
-
+                            <td style="white-space: nowrap">
+                                {{item.img}}</td>
                             <td style="white-space: nowrap">
                                 <!--<button class="btn btn-primary" id="{{ 'submitBtn-' + $index }}" data-toggle="modal" data-target="#myModal"><span><h4> <small>Create Topic</small></h4><span></button>-->
-                                <button class="btn btn-primary" id="{{ 'submitBtn-' + $index }}" ng-click="findItem(getThis())"> click me</button>
+                                <button class="btn btn-primary" id="{{ 'submitBtn-' + $index }}" ng-click=""> create me</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div ng-repeat="pic in pics">
+                        <div class="smallpic col-sm-3">
 
+                            <img ng-src="{{pic.thumbnailUrl}}" alt="img" style="width: 200px;height:200px;word-wrap: break-word;" ng-click="setImageName('{{pic.thumbnailUrl}}')">
+                        </div>
 
-    </div>
-    <!--<div id="map" class="col-sm-6">
-        this is map
-    </div>-->
-    <div id="topicDetails table-responsive" class="col-sm-6">
-        <div class="row" class="col-sm-12">
-            <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>url</th>
-                        <th>Total Tweets</th>
-                        <th>query</th>
-                        <th>image</th>
-                        <th>Create Topic</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <span editable-text="item.name" e-name="name" e-form="rowform">
-                                {{ item.name || '' }}
-                            </span>
-                        </td>
-                        <td style="max-width: 300px;word-wrap: break-word;">
-                            <a ng-href="{{ item.url|| ''}}">{{item.url}}</a></td>
-
-                        <td>
-                            <!-- editable group (select-remote) -->
-                            <!--<span editable-text="x.tweet_volume" e-name="img" e-form="rowform">-->
-                            {{ item.tweet_volume || '' }}
-                            <!--</span>-->
-                        </td>
-                        <td style="max-width: 300px;word-wrap: break-word;">
-                            {{ item.query || '' }}
-                        </td>
-                        <td style="white-space: nowrap">
-                            {{item.img}}</td>
-                        <td style="white-space: nowrap">
-                            <!--<button class="btn btn-primary" id="{{ 'submitBtn-' + $index }}" data-toggle="modal" data-target="#myModal"><span><h4> <small>Create Topic</small></h4><span></button>-->
-                            <button class="btn btn-primary" id="{{ 'submitBtn-' + $index }}" ng-click=""> create me</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div ng-repeat="pic in pics">
-                    <div class="smallpic col-sm-3">
-
-                        <img ng-src="{{pic.contentUrl}}" alt="img" style="width: 100px;height:100px;word-wrap: break-word;" ng-click="setImageName('{{pic.contentUrl}}')">
                     </div>
-
                 </div>
             </div>
         </div>

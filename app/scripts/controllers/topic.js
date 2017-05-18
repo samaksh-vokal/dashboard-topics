@@ -23,7 +23,7 @@ angular.module('okTalkApp')
 
     $scope.channelContentList = [];
 
-    $scope.channel.language = 'en';
+    $scope.channel.language = 'kn';
 
     $scope.checkResults = [];
 

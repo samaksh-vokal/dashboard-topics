@@ -52,7 +52,7 @@ angular.module('okTalkApp')
     $scope.today = function () {
       $scope.dt = new Date();
     };
-    $scope.languages = ['all', 'en', 'kn', 'hi'];
+    $scope.languages = ['all', 'en', 'kn', 'hi','ta'];
     $scope.lang = 'all';
     $scope.today();
 

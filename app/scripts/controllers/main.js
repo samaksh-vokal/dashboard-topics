@@ -122,6 +122,7 @@ angular.module('okTalkApp')
   .factory('apiFactory', function ($http, $q) {
     return {
       doGetCall: function (url) {
+        console.log('called doGetCall');
         var deferred = $q.defer();
         $http.get(url)
           .then(function (resp) {

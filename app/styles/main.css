@@ -8,6 +8,14 @@
 body {
   padding: 0;
 }
+   body{
+       font-family:Rubik;
+         background: url('https://s3-ap-southeast-1.amazonaws.com/ok.talk.channels/ok.talk.topics/images/background.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+       }
 ul,li { list-style-type: none; }
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
@@ -129,9 +137,29 @@ form .progress {
 }
 
 .smallpic{
-  width:100px;
-  height: 100px;
+  width:200px;
+  height: 200px;
   margin:10px;
+}
+
+#map-canvas {
+  height: 700px;
+  width: 100%;
+  margin: 0px;
+  padding: 0px
+}
+
+.result-box{
+  border: 1px solid gainsboro;
+  margin:5px;
+  padding: 20px;
+  -moz-box-shadow: 0 0 3px #ccc;
+  -webkit-box-shadow: 0 0 3px #ccc;
+  box-shadow: 0 0 3px #ccc;
+  background-color: #e1e1e1
+}
+.result-box-name{
+  font-size:28px;
 }
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
