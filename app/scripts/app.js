@@ -69,6 +69,11 @@ angular
         controller: 'TrendingCtrl',
         controllerAs: 'trending'
       })
+       .when('/spam', {
+        templateUrl: 'views/spam.html',
+        controller: 'SpamCtrl',
+        controllerAs: 'spam'
+      })
       .otherwise({
         redirectTo: '/'
       });
