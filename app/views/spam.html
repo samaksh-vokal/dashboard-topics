@@ -1,7 +1,56 @@
 <div class="row">
-    all calender n all will come here
- </div>
+    <div class="col-xs-12 col-sm-2">
+        <div class="form-group">
+            <label for="activate_from" class="col-sm-6 control-label">from date</label>
+            <div class="col-sm-12">
+                <p class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt" is-open="popup1.opened" datepicker-options="dateOptions"
+                        ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-2">
+        <div class="form-group">
+            <label for="activate_from" class="col-sm-6 control-label"> to date</label>
+            <div class="col-sm-12">
+                <p class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt2" is-open="popup2.opened" datepicker-options="dateOptions"
+                        ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-1">
+        <label for="inputLang" class="col-sm-2 control-label">Language</label>
+        <div class="col-sm-12">
+            <select ng-model="lang" ng-options="x for x in languages">
+          </select>
+        </div>
+    </div>
 
+      <div class="col-xs-12 col-sm-1">
+        <label for="inputLang" class="col-sm-2 control-label">type</label>
+        <div class="col-sm-12">
+            <select ng-model="type" ng-options="x for x in types">
+          </select>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-2 topMargin">
+        <button type="button" class="btn btn-primary" ng-click="getData('reported')">Submit</button>
+    </div>
+    <div class="col-xs-12 col-sm-3">
+        <input type="text" class="form-control " ng-model="queryBar" placeholder="Search Topic">
+    </div>
+
+
+</div>
  <div class="row">
      <div class="topMargin">
          <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
@@ -38,6 +87,11 @@
                         <p><li><a href="#/spam" data-toggle="tooltip" data-placement="left" title="{{getPeople(x.reporters)}}">See who </a></li></p>
                     </td>
                     <td>
+                      <div class="buttons">
+                                <button class="btn btn-primary" id="{{ 'spamBtn-' + $index }}" ng-click="doAction(x.content_id,'spam')">Spam</button>
+                                <button class="btn btn-primary" id="{{ 'abusiveBtn-' + $index }}" ng-click="doAction(x.content_id,'abusive')">Abusive</button>
+                                <button class="btn btn-primary" id="{{ 'ignoreBtn-' + $index }}" ng-click="doAction(x.content_id,'ignore')">Ignore</button>
+                            </div>
 
                     </td>
                 </tr>

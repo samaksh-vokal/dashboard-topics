@@ -65,9 +65,10 @@ angular
         controllerAs: 'audiogram'
       })
        .when('/trending', {
-        templateUrl: 'views/trending.html',
-        controller: 'TrendingCtrl',
-        controllerAs: 'trending'
+        // templateUrl: 'views/trending.html',
+        // controller: 'TrendingCtrl',
+        // controllerAs: 'trending'
+        redirectTo: '/'
       })
        .when('/spam', {
         templateUrl: 'views/spam.html',
