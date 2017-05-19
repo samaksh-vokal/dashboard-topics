@@ -8,7 +8,8 @@
             <thead>
                 <tr>
                     <th>Name/handle</th>
-                    <th>Image</th>
+                    <th>profile-Image</th>
+                    <th>Voke-Image</th>
                     <th>Spam-Date</th>
                     <th>Lang</th>
                     <th>Title</th>
@@ -19,16 +20,26 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="x in vokers">
-                    <td>Yatender/@yatender</td>
-                    <td><img src="{{ x.image || '' }} "  alt="topic image" height="80" width="80"/></td>
-                    <td</td>
-                    <td>{{ x.dt | date:'yyyy-MM-dd HH:mm:ss' || '' }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr ng-repeat="x in reports">
+                    <td>{{x.name}} / {{x.handle}}</td>
+                    <td><img src="{{ x.profile_image || 'https://vignette1.wikia.nocookie.net/sote-rp/images/c/c4/User-placeholder.png/revision/latest?cb=20150624004222' }} "  alt="profile image" height="100" width="120"/></td>
+                    <td><img src="{{ x.img || '' }} "  alt="topic image" height="100" width="120"/></td>
+                    <td>{{ x.created_at | date:'yyyy-MM-dd HH:mm:ss' || '' }}</td>
+                    <td>{{x.lang}}</td>
+                    <td>{{x.title}}</td>
+                    <td>
+                             <audio id="audio+{{x.payload}}" preload="metadata" type="audio/mp3" controls="controls">
+                                <source ng-src="{{x.payload}}" type="audio/mp3" /> Your browser doesn't support the HTML audio tag. Be sad.
+                            </audio>
+                    </td>
+                    <td>{{x.count}}</td>
+                    <td>
+                        <p>{{getTotal(x.reporters)}}</p>
+                        <p><li><a href="#/spam" data-toggle="tooltip" data-placement="left" title="{{getPeople(x.reporters)}}">See who </a></li></p>
+                    </td>
+                    <td>
+
+                    </td>
                 </tr>
             </tbody>
          </table>
