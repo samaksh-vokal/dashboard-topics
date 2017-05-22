@@ -86,13 +86,25 @@
                         <p>{{getTotal(x.reporters)}}</p>
                         <p><li><a href="#/spam" data-toggle="tooltip" data-placement="left" title="{{getPeople(x.reporters)}}">See who </a></li></p>
                     </td>
-                    <td>
+                    <td class="action1">
                       <div class="buttons">
-                                <button class="btn btn-primary" id="{{ 'spamBtn-' + $index }}" ng-click="doAction(x.content_id,'spam')">Spam</button>
-                                <button class="btn btn-primary" id="{{ 'abusiveBtn-' + $index }}" ng-click="doAction(x.content_id,'abusive')">Abusive</button>
-                                <button class="btn btn-primary" id="{{ 'ignoreBtn-' + $index }}" ng-click="doAction(x.content_id,'ignore')">Ignore</button>
+                                <button class="btn btn-primary" id="{{ 'spamBtn-' + $index }}" ng-click="doAction(x.content_id,'spam',x.owner_id)">Spam</button>
+                                <button class="btn btn-primary" id="{{ 'abusiveBtn-' + $index }}" ng-click="doAction(x.content_id,'abusive',x.owner_id)">Abusive</button>
+                                <button class="btn btn-primary" id="{{ 'ignoreBtn-' + $index }}" ng-click="doAction(x.content_id,'ignore',x.owner_id)">Ignore</button>
                             </div>
+                    </td>
 
+                    <td class="action2">
+                      <div class="buttons">
+                                <button class="btn btn-primary" id="{{ 'spamBtn-' + $index }}" ng-click="doActionFromIgnored(x,'spam_undo')">Spam</button>
+                                <button class="btn btn-primary" id="{{ 'abusiveBtn-' + $index }}" ng-click="doActionFromIgnored(x,'abusive_undo')">Abusive</button>
+                            </div>
+                    </td>
+
+                     <td class="action3">
+                      <div class="buttons">
+                                <button class="btn btn-primary" id="{{ 'spamBtn-' + $index }}" ng-click="doUndo(x)">No Spam</button>
+                            </div>
                     </td>
                 </tr>
             </tbody>
