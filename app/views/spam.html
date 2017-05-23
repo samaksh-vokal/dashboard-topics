@@ -86,7 +86,7 @@
                         <p>{{getTotal(x.reporters)}}</p>
                         <p><li><a href="#/spam" data-toggle="tooltip" data-placement="left" title="{{getPeople(x.reporters)}}">See who </a></li></p>
                     </td>
-                    <td class="action1">
+                    <td ng-show="box1" class="action1">
                       <div class="buttons">
                                 <button class="btn btn-primary" id="{{ 'spamBtn-' + $index }}" ng-click="doAction(x.content_id,'spam',x.owner_id)">Spam</button>
                                 <button class="btn btn-primary" id="{{ 'abusiveBtn-' + $index }}" ng-click="doAction(x.content_id,'abusive',x.owner_id)">Abusive</button>
@@ -94,14 +94,14 @@
                             </div>
                     </td>
 
-                    <td class="action2">
+                    <td ng-show="box2" class="action2">
                       <div class="buttons">
                                 <button class="btn btn-primary" id="{{ 'spamBtn-' + $index }}" ng-click="doActionFromIgnored(x,'spam_undo')">Spam</button>
                                 <button class="btn btn-primary" id="{{ 'abusiveBtn-' + $index }}" ng-click="doActionFromIgnored(x,'abusive_undo')">Abusive</button>
                             </div>
                     </td>
 
-                     <td class="action3">
+                     <td ng-show="box3" class="action3">
                       <div class="buttons">
                                 <button class="btn btn-primary" id="{{ 'spamBtn-' + $index }}" ng-click="doUndo(x)">No Spam</button>
                             </div>
