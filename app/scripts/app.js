@@ -70,6 +70,18 @@ angular
         // controllerAs: 'trending'
         redirectTo: '/'
       })
+       .when('/vokers', {
+        templateUrl: 'views/vokers.html',
+        controller: 'VokersCtrl',
+        controllerAs: 'vokers'
+        // redirectTo: '/'
+      })
+       .when('/notification', {
+        templateUrl: 'views/notification.html',
+        controller: 'NotificationCtrl',
+        controllerAs: 'notification'
+        // redirectTo: '/'
+      })
        .when('/spam', {
         templateUrl: 'views/spam.html',
         controller: 'SpamCtrl',

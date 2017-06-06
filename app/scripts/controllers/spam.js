@@ -41,7 +41,7 @@ angular.module('okTalkApp')
             console.log(content_id, action);
             var k = new objR2(content_id, owner_id,"");
             console.log(k);
-            apiFactory.doUpdateCall('http://int.oktalk.com/v1/users/report/' + action, k).then(function (response) {
+            apiFactory.doUpdateCall('http://api.oktalk.com/v1/users/report/' + action, k).then(function (response) {
                 console.log(response.data);
                 $scope.getData()
             });
@@ -52,7 +52,7 @@ angular.module('okTalkApp')
             var status =200+ item.report%10;
             var k = new objR2(item.content_id, item.owner_id,status);
             console.log(k);
-            apiFactory.doUpdateCall('http://int.oktalk.com/v1/users/reportc/undo',k).then(function (response) {
+            apiFactory.doUpdateCall('http://api.oktalk.com/v1/users/reportc/undo',k).then(function (response) {
                 console.log(response.data);
                 $scope.getData();
             });
@@ -68,7 +68,7 @@ angular.module('okTalkApp')
             }
             var k = new objR2(item.content_id, item.owner_id,status);
             console.log(k);
-            apiFactory.doUpdateCall('http://int.oktalk.com/v1/users/report/'+type,k).then(function (response) {
+            apiFactory.doUpdateCall('http://api.oktalk.com/v1/users/report/'+type,k).then(function (response) {
                 console.log(response.data);
                 $scope.getData()
             });
@@ -100,7 +100,7 @@ angular.module('okTalkApp')
 
         $scope.dateOptions = {
             formatYear: 'yy',
-            maxDate: new Date(2020, 5, 22),
+            maxDate: new Date(),
             startingDay: 1
         };
        
@@ -142,7 +142,7 @@ angular.module('okTalkApp')
             } else {
               $scope.show(3);
             }
-            $scope.url = 'http://int.oktalk.com/v1/users/spam/' + $scope.type + '?lang=' + $scope.lang + '&from=' + formatDate($scope.channel.dt) + '&to=' + formatDate($scope.channel.dt2);
+            $scope.url = 'http://api.oktalk.com/v1/users/spam/' + $scope.type + '?lang=' + $scope.lang + '&from=' + formatDate($scope.channel.dt) + '&to=' + formatDate($scope.channel.dt2);
             apiFactory.doGetCall($scope.url)
                 .then(function (response) {
                     console.log(response.data);
