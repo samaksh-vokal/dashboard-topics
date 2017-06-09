@@ -82,7 +82,7 @@ angular.module('okTalkApp')
 
 
         $scope.doAction = function (status, user, gender) {
-            var url = "http://localhost:8080/v1/users/approve/user/" + user + "/status/" + status + "/gender/" + gender;
+            var url = "http://api.oktalk.com/v1/users/approve/user/" + user + "/status/" + status + "/gender/" + gender;
             apiFactory.doUpdateCall(url, {}).then(function (response) {
                 console.log(response.data);
                 $scope.getData();
@@ -91,7 +91,7 @@ angular.module('okTalkApp')
 
 
         $scope.updateGender = function(user,gender){
-            var url = "http://localhost:8080/v1/users/approve/user/" + user + "/gender/" + gender;
+            var url = "http://api.oktalk.com/v1/users/approve/user/" + user + "/gender/" + gender;
             apiFactory.doUpdateCall(url, {}).then(function (response) {
                 console.log(response.data);
                 $scope.getData();
@@ -108,7 +108,7 @@ angular.module('okTalkApp')
             }
             var obj = new reqObj(formatDate($scope.channel.dt), formatDate($scope.channel.dt2), $scope.lang, $scope.type);
             console.log(obj);
-            apiFactory.doPostCall('http://localhost:8080/v1/users/vokers/', obj).then(function (response) {
+            apiFactory.doPostCall('http://api.oktalk.com/v1/users/vokers/', obj).then(function (response) {
                 console.log(response.data);
                 $scope.jokers = response.data.vokers;
             }, function (err) {
