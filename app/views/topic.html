@@ -64,7 +64,7 @@
 		<td>
 			<!-- editable group (select-remote) -->
 			<span editable-text="x.image" e-name="img" e-form="rowform">
-					<img src="{{ x.image || '' }} "  alt="topic image" height="80" width="80"/> 
+					<img src="{{ x.image || '' }} "  alt="topic image" height="80" width="80"/>
 				</span>
 		</td>
 		<td>
@@ -177,7 +177,7 @@
 							<pre>{{channel.language || 'kn'}}</pre>
 							<!--<input type="text" class="form-control" id="inputLang" ng-model="channel.name" placeholder="Language" >-->
 							<div class="btn-group">
-								
+
 								<label class="btn btn-success" ng-model="channel.language" uib-btn-radio="'kn'" uncheckable>Kannada</label>
 								<label class="btn btn-success" ng-model="channel.language" uib-btn-radio="'hi'" uib-uncheckable="uncheckable">Hindi</label>
 								<label class="btn btn-success" ng-model="channel.language" uib-btn-radio="'ta'" uib-uncheckable="uncheckable">Tamil</label>
@@ -197,7 +197,7 @@
 							<br><br> File:
 							<div style="font:smaller">{{f1.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
 								<span class="progress" ng-show="f1.progress >= 0">
-								<div style="width:{{f1.progress}}%"  
+								<div style="width:{{f1.progress}}%"
 									ng-bind="f1.progress + '%'"></div>
 							</span>
 							</div>
@@ -217,7 +217,7 @@
 							<br><br> File:
 							<div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
 								<span class="progress" ng-show="f.progress >= 0">
-								<div style="width:{{f.progress}}%"  
+								<div style="width:{{f.progress}}%"
 									ng-bind="f.progress + '%'"></div>
 							</span>
 							</div>

@@ -1,0 +1,111 @@
+<!-- Search form -->
+<div class="row">
+  <div class="col-xs-12 col-sm-2">
+    <div class="form-group">
+      <label for="activate_from" class="col-sm-6 control-label">from date</label>
+      <div class="col-sm-12">
+        <p class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt" is-open="popup1.opened" datepicker-options="dateOptions"
+          ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-2">
+    <div class="form-group">
+      <label for="activate_from" class="col-sm-6 control-label"> to date</label>
+      <div class="col-sm-12">
+        <p class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt2" is-open="popup2.opened" datepicker-options="dateOptions"
+          ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-1">
+    <label for="inputLang" class="col-sm-2 control-label">Language</label>
+    <div class="col-sm-12">
+      <select ng-model="lang" ng-options="x for x in languages">
+      </select>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-1">
+    <label for="inputLang" class="col-sm-2 control-label">type</label>
+    <div class="col-sm-12">
+      <select ng-model="type" ng-options="x for x in types">
+      </select>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-2 topMargin">
+    <button type="button" class="btn btn-primary" ng-click="getData('reported')">Submit</button>
+  </div>
+  <div class="col-xs-12 col-sm-3">
+    <input type="text" class="form-control " ng-model="queryBar" placeholder="Search Vokes">
+  </div>
+</div>
+
+<!-- Tabular results -->
+<div class="row" ng-show="reports.length">
+  <div class="col-xs-12">
+    <div class="topMargin">
+      <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
+        <thead>
+          <tr>
+            <th>Topic Title</th>
+            <th>Topic Image</th>
+            <th>Spam-Date</th>
+            <th>Lang</th>
+            <th>Topic</th>
+            <th>Reports</th>
+            <th>Details</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in reports | filter:queryBar ">
+            <td>{{x.title}}</td>
+            <td><img src="{{ x.image || 'https://vignette1.wikia.nocookie.net/sote-rp/images/c/c4/User-placeholder.png/revision/latest?cb=20150624004222' }} "  alt="topic image" height="100" width="120"/></td>
+            <td>{{ x.created_at | date:'yyyy-MM-dd HH:mm:ss' || '' }}</td>
+            <td>{{x.lang}}</td>
+            <td>
+              <audio id="audio+{{x.payload}}" preload="metadata" type="audio/mp3" controls="controls">
+                <source ng-src="{{x.payload}}" type="audio/mp3" /> Your browser doesn't support the HTML audio tag. Be sad.
+              </audio>
+            </td>
+            <td>{{x.reporters.length}}</td>
+            <td>
+              <p>{{getTotal(x.reporters) }}</p>
+              <p><li><a href="#/spam" data-toggle="tooltip" data-placement="left" title="{{getPeople(x.reporters)}}">See who </a></li></p>
+            </td>
+            <td ng-show="box1" class="action1">
+              <div class="buttons">
+                <div class="btn-group">
+                  <button class="btn btn-primary" id="{{ 'spamBtn-' + $index }}" ng-click="doAction(x.topic_id,'spam',x.owner_id)">Spam</button>
+                  <button class="btn btn-primary" id="{{ 'abusiveBtn-' + $index }}" ng-click="doAction(x.topic_id,'abusive',x.owner_id)">Abusive</button>
+                  <button class="btn btn-primary" id="{{ 'ignoreBtn-' + $index }}" ng-click="doAction(x.topic_id,'ignore',x.owner_id)">Ignore</button>
+                </div>
+              </div>
+            </td>
+            <td ng-show="box2" class="action2">
+              <div class="buttons">
+                <button class="btn btn-primary" id="{{ 'spamBtn-' + $index }}" ng-click="doActionFromIgnored(x,'spam_undo')">Spam</button>
+                <button class="btn btn-primary" id="{{ 'abusiveBtn-' + $index }}" ng-click="doActionFromIgnored(x,'abusive_undo')">Abusive</button>
+              </div>
+            </td>
+            <td ng-show="box3" class="action3">
+              <div class="buttons">
+                <button class="btn btn-primary" id="{{ 'spamBtn-' + $index }}" ng-click="doUndo(x)">No Spam</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
