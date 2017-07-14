@@ -15,7 +15,7 @@
 	<!-- endbower -->
 	<!-- endbuild -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-datetimepicker/1.1.4/css/datetimepicker.min.css"/>
-	
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.css" />
 	<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
 	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">-->
@@ -37,37 +37,48 @@
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#/">Vokal</a>
 				</div>
-
 				<!--<div class="collapse">-->
 				<ul class="nav navbar-nav" bs-navbar>
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Topic
-    <span class="caret"></span></a>
+						<a class="dropdown-toggle" data-toggle="dropdown">Topic
+						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li data-match-route="/topic"><a ng-href="#/topic">Create</a></li>
 							<li data-match-route="/topicview"><a ng-href="#/topicview">View</a></li>
 						</ul>
 					</li>
-					<li data-match-route="/"><a ng-href="#/spam">Spam</a></li>
-					<li data-match-route="/"><a ng-href="#/vokers">Vokers</a></li>
-					<li data-match-route="/"><a ng-href="#/notification">Notifications</a></li>
-					<li data-match-route="/"><a ng-href="#/audiogram">Audiogram</a></li>
-					<li data-match-route="/"><a ng-href="#/message">Message</a></li>
-					<li data-match-route="/"><a ng-href="#/trending">Trending</a></li>
-					
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown">
+							Spam<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li data-match-route="/spam-vokes"><a ng-href="#/spam-vokes">Vokes</a></li>
+							<li data-match-route="/spam-topics"><a ng-href="#/spam-topics">Topics</a></li>
+						</ul>
+					</li>
+					<li data-match-route="/vokers"><a ng-href="#/vokers">Vokers</a></li>
+					<li data-match-route="/notification"><a ng-href="#/notification">Notifications</a></li>
+					<li data-match-route="/audiogram"><a ng-href="#/audiogram">Audiogram</a></li>
+					<li data-match-route="/message"><a ng-href="#/message">Message</a></li>
+					<li data-match-route="/trending"><a ng-href="#/trending">Trending</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 
-
+	<!-- Main view -->
 	<div class="container-fluid">
 		<div ng-view=""></div>
 	</div>
 
+	<!-- Footer -->
 	<div class="footer">
-		<div class="container">
-			<p><span class="glyphicon glyphicon-heart"></span> from vokal </p>
+		<div class="container-fluid" style="padding-top:20px;">
+			<div class="row">
+				<div class="col-xs-12">
+					<p><span class="glyphicon glyphicon-heart"></span> from vokal </p>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -109,8 +120,8 @@
 	<script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-datetimepicker/1.1.4/js/datetimepicker.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-datetimepicker/1.1.4/js/datetimepicker.templates.min.js"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry,places&ext=.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-datetimepicker/1.1.4/js/datetimepicker.templates.min.js"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry,places&ext=.js"></script>
 	<!-- build:js({.tmp,app}) scripts/scripts.js -->
 	<script src="scripts/app.js"></script>
 	<script src="scripts/controllers/main.js"></script>

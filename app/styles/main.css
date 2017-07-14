@@ -5,17 +5,25 @@
   padding: 0.2em 0;
 }
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
+  margin-bottom: 60px;
   padding: 0;
 }
-   body{
-       font-family:Rubik;
-         background: url('https://s3-ap-southeast-1.amazonaws.com/ok.talk.channels/ok.talk.topics/images/background.png') no-repeat center center fixed;
+body{
+  font-family:Rubik;
+  background: url('https://s3-ap-southeast-1.amazonaws.com/ok.talk.channels/ok.talk.topics/images/background.png') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-       }
+  height: 100%;
+}
+
 ul,li { list-style-type: none; }
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
@@ -27,7 +35,6 @@ ul,li { list-style-type: none; }
 
 /* Custom page header */
 .header {
-  border-bottom: 1px solid #e5e5e5;
   margin-bottom: 10px;
 }
 /* Make the masthead heading the same height as the navigation */
@@ -40,10 +47,17 @@ ul,li { list-style-type: none; }
 
 /* Custom page footer */
 .footer {
-  padding-top: 19px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+
+  /*padding-top: 19px;*/
   color: #777;
   border-top: 1px solid #e5e5e5;
-  margin-top:40px;
+
 }
 
 .container-narrow > hr {

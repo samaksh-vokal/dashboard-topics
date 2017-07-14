@@ -82,11 +82,16 @@ angular
         controllerAs: 'notification'
         // redirectTo: '/'
       })
-       .when('/spam', {
+       .when('/spam-vokes', {
         templateUrl: 'views/spam.html',
         controller: 'SpamCtrl',
         controllerAs: 'spam'
       })
+       .when('/spam-topics', {
+        templateUrl: 'views/spam-topics.html',
+        controller: 'SpamTopicsCtrl',
+        controllerAs: 'stCtrl'
+       })
       .otherwise({
         redirectTo: '/'
       });
