@@ -197,3 +197,7 @@ form .progress {
     border-bottom: 0;
   }
 }
+
+.navbar {
+  border-radius: 0;
+}
