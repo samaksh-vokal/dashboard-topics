@@ -13,7 +13,7 @@ angular.module('okTalkApp')
       $scope.init();
     });
     // var urlGetChannels = 'http://localhost:3000/getAllChannels';
-    $scope.orderByField = 'title';
+    $scope.orderByField = 'created_at';
     $scope.reverseSort = false;
     function getDayClass(data) {
       var date = data.date,

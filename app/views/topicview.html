@@ -1,167 +1,157 @@
 <div class="row">
-    <div class="col-xs-12 col-sm-2">
-        <div class="form-group">
-            <label for="activate_from" class="col-sm-6 control-label">from date</label>
-            <div class="col-sm-12">
-                <p class="input-group">
-                    <input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt" is-open="popup1.opened" datepicker-options="dateOptions"
-                        ng-required="true" close-text="Close" />
-                    <span class="input-group-btn">
+  <div class="col-xs-12 col-sm-2">
+    <div class="form-group">
+      <label for="activate_from" class="col-sm-6 control-label">from date</label>
+      <div class="col-sm-12">
+        <p class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
-                </p>
-            </div>
-        </div>
+        </p>
+      </div>
     </div>
-    <div class="col-xs-12 col-sm-2">
-        <div class="form-group">
-            <label for="activate_from" class="col-sm-6 control-label"> to date</label>
-            <div class="col-sm-12">
-                <p class="input-group">
-                    <input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt2" is-open="popup2.opened" datepicker-options="dateOptions"
-                        ng-required="true" close-text="Close" />
-                    <span class="input-group-btn">
+  </div>
+  <div class="col-xs-12 col-sm-2">
+    <div class="form-group">
+      <label for="activate_from" class="col-sm-6 control-label"> to date</label>
+      <div class="col-sm-12">
+        <p class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt2" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
-                </p>
-            </div>
-        </div>
+        </p>
+      </div>
     </div>
-    <div class="col-xs-12 col-sm-2">
-        <label for="inputLang" class="col-sm-2 control-label">Language</label>
-        <div class="col-sm-12">
-            <select ng-model="lang" ng-options="x for x in languages">
-          </select>
-        </div>
+  </div>
+  <div class="col-xs-12 col-sm-2">
+    <label for="inputLang" class="col-sm-2 control-label">Language</label>
+    <div class="col-sm-12">
+      <select ng-model="lang" ng-options="x for x in languages">
+      </select>
     </div>
-    <div class="col-xs-12 col-sm-2 topMargin">
-        <button type="button" class="btn btn-primary" ng-click="getData()">Submit</button>
-    </div>
-    <div class="col-xs-12 col-sm-3">
-        <input type="text" class="form-control " ng-model="queryBar" placeholder="Search Topic">
-    </div>
-
-
+  </div>
+  <div class="col-xs-12 col-sm-2 topMargin">
+    <button type="button" class="btn btn-primary" ng-click="getData()">Submit</button>
+  </div>
+  <div class="col-xs-12 col-sm-3">
+    <input type="text" class="form-control " ng-model="queryBar" placeholder="Search Topic">
+  </div>
 </div>
-
 <div class="row">
-    <div class="col-sm-6 col-xs-12">
-        <input type="text" ng-model="ref_id" class="form-control" placeholder="ref_id" />
-    </div>
+  <div class="col-sm-6 col-xs-12">
+    <input type="text" ng-model="ref_id" class="form-control" placeholder="ref_id" />
+  </div>
 </div>
-
-
-
 <div class="row">
-    <div ng-if="mydata.topics.length" class="topMargin">
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
-                <thead>
-                    <tr>
-                        <th ng-click="orderByField='ref_id'; reverseSort = !reverseSort">
-                            Ref_id
-                            <span ng-show="orderByField == 'ref_id'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
-                        </th>
-                        <th>voice_desc</th>
-                        <th ng-click="orderByField='title'; reverseSort = !reverseSort">Title
-                            <span ng-show="orderByField == 'title'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
-                        </th>
-                        <th ng-click="orderByField='n_vokes'; reverseSort = !reverseSort">n_vokes
-                            <span ng-show="orderByField == 'n_vokes'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
-                        </th>
-                        <th ng-click="orderByField='language'; reverseSort = !reverseSort">language
-                            <span ng-show="orderByField == 'language'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
-                        </th>
-                        <th>image</th>
-                        <th>Default Text</th>
-                        <th ng-click="orderByField='weightage'; reverseSort = !reverseSort">Weightage
-                            <span ng-show="orderByField == 'weightage'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
-                        </th>
-                        <th>activate Date</th>
-                        <th>hashtag</th>
-                        <th>Edit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="x in mydata.topics | filter:queryBar |orderBy:orderByField:reverseSort">
-                        <td>
-                            <span editable-text="x.ref_id" e-name="ref_id" e-form="rowform">
-                                {{ x.ref_id || '' }}
-                            </span>
-                        </td>
-                        <td>
-                            <audio id="audio+{{x.topic_id}}" preload="metadata" type="audio/mp3" controls="controls">
-                                <source ng-src="{{x.voice_desc}}" type="audio/mp3" /> Your browser doesn't support the HTML audio tag. Be sad.
-                            </audio>
-                        </td>
-                        <td>
-                            <span editable-text="x.title" e-name="title" e-form="rowform">
-                                {{ x.title || '' }}
-                            </span>
-                        </td>
-                        <td>
-                            {{ x.n_vokes || '' }}
-                        </td>
-                        <td>
-                            <!-- editable group (select-remote) -->
-                            <span editable-text="x.language" e-name="img" e-form="rowform">
-                                {{ x.language || '' }}
-                            </span>
-                        </td>
-                        <td>
-                            <!-- editable group (select-remote) -->
-                            <span editable-text="x.image" e-name="img" e-form="rowform">
-                                <img src="{{ x.image || '' }} " alt="topic image" height="80" width="80"/> 
-                            </span>
-                        </td>
-                        <td>
-                            <!-- editable group (select-remote) -->
-                            <span editable-text="x.default_text" e-name="default_text" e-form="rowform">
-                                {{ x.default_text || '' }}
-                            </span>
-                        </td>
-                        <td>
-                            <!-- editable group (select-remote) -->
-                            <span editable-text="x.weightage" e-name="weightage" e-form="rowform">
-					{{ x.weightage || '' }}
-				</span>
-                        </td>
-                        <td>
-                            <!-- editable group (select-remote) -->
-                            <span editable-text="x.created_at" e-name="created_at" e-form="rowform">
-                                {{ x.created_at || '' }}
-                            </span>
-                        </td>
-                        <td>
-                            <!-- editable group (select-remote) -->
-                            <span editable-text="x.hashtag" e-name="hashtag" e-form="rowform">
-                                {{ x.hashtag || '' }}
-                            </span>
-                        </td>
-
-                        <td style="white-space: nowrap">
-                            <!-- form -->
-                            <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline">
-                                <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
-            		save
-          </button>
-                                <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
-            		cancel
-          </button>
-                                <button type="button" ng-disabled="rowform.$waiting" id="{{ 'deleteBtn-' + $index }}" ng-click="deleteElement(x,$index)"
-                                    class="btn btn-danger">
-                                    Delete
-                                    </button>
-                            </form>
-                            <div class="buttons" ng-show="!rowform.$visible">
-                                <button class="btn btn-primary" id="{{ 'editBtn-' + $index }}" ng-click="rowform.$show()">edit</button>
-                                <!--<button class="btn btn-danger" ng-click="removeUser($index)">del</button>-->
-                                <button class="btn btn-primary" id="{{ 'submitBtn-' + $index }}" ng-click="createNewChannel(x,$index)">Submit</button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+  <div ng-if="mydata.topics.length" class="topMargin">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
+        <thead>
+          <tr>
+            <th ng-click="orderByField='ref_id'; reverseSort = !reverseSort">
+              Ref_id
+              <span ng-show="orderByField == 'ref_id'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+            </th>
+            <th>Voice Desc</th>
+            <th ng-click="orderByField='title'; reverseSort = !reverseSort">Title
+              <span ng-show="orderByField == 'title'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+            </th>
+            <th ng-click="orderByField='n_vokes'; reverseSort = !reverseSort">n_vokes
+              <span ng-show="orderByField == 'n_vokes'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+            </th>
+            <th ng-click="orderByField='language'; reverseSort = !reverseSort">language
+              <span ng-show="orderByField == 'language'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+            </th>
+            <th>Image</th>
+            <th>Default Text</th>
+            <th ng-click="orderByField='weightage'; reverseSort = !reverseSort">Weightage
+              <span ng-show="orderByField == 'weightage'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+            </th>
+            <th>Activate Date</th>
+            <th>hashtag</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in mydata.topics | filter:queryBar | orderBy:orderByField:reverseSort">
+            <td>
+              <span editable-text="x.ref_id" e-name="ref_id" e-form="rowform">
+                {{ x.ref_id || '' }}
+              </span>
+            </td>
+            <td>
+              <audio id="audio+{{x.topic_id}}" preload="metadata" type="audio/mp3" controls="controls">
+                <source ng-src="{{x.voice_desc}}" type="audio/mp3" /> Your browser doesn't support the HTML audio tag. Be sad.
+              </audio>
+            </td>
+            <td>
+              <span editable-text="x.title" e-name="title" e-form="rowform">
+                {{ x.title || '' }}
+              </span>
+            </td>
+            <td>
+              {{ x.n_vokes || '' }}
+            </td>
+            <td>
+              <!-- editable group (select-remote) -->
+              <span editable-text="x.language" e-name="img" e-form="rowform">
+                {{ x.language || '' }}
+              </span>
+            </td>
+            <td>
+              <!-- editable group (select-remote) -->
+              <span editable-text="x.image" e-name="img" e-form="rowform">
+                <img src="{{ x.image || '' }} " alt="topic image" height="80" width="80"/>
+              </span>
+            </td>
+            <td>
+              <!-- editable group (select-remote) -->
+              <span editable-text="x.default_text" e-name="default_text" e-form="rowform">
+                {{ x.default_text || '' }}
+              </span>
+            </td>
+            <td>
+              <!-- editable group (select-remote) -->
+              <span editable-text="x.weightage" e-name="weightage" e-form="rowform">
+                {{ x.weightage || '' }}
+              </span>
+            </td>
+            <td>
+              <!-- editable group (select-remote) -->
+              <span editable-text="x.created_at" e-name="created_at" e-form="rowform">
+                {{ x.created_at || '' }}
+              </span>
+            </td>
+            <td>
+              <!-- editable group (select-remote) -->
+              <span editable-text="x.hashtag" e-name="hashtag" e-form="rowform">
+                {{ x.hashtag || '' }}
+              </span>
+            </td>
+            <td style="white-space: nowrap">
+              <!-- form -->
+              <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline">
+                <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                  Save
+                </button>
+                <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+                  Cancel
+                </button>
+                <button type="button" ng-disabled="rowform.$waiting" id="{{ 'deleteBtn-' + $index }}" ng-click="deleteElement(x,$index)" class="btn btn-danger">
+                  Delete
+                </button>
+              </form>
+              <div class="buttons" ng-show="!rowform.$visible">
+                <button class="btn btn-primary" id="{{ 'editBtn-' + $index }}" ng-click="rowform.$show()">Edit</button>
+                <!--<button class="btn btn-danger" ng-click="removeUser($index)">del</button>-->
+                <button class="btn btn-primary" id="{{ 'submitBtn-' + $index }}" ng-click="createNewChannel(x,$index)">Submit</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
