@@ -39,21 +39,21 @@
 				</div>
 				<!--<div class="collapse">-->
 				<ul class="nav navbar-nav" bs-navbar>
-					<li class="dropdown">
+					<li class="dropdown" data-match-route="/topic">
 						<a class="dropdown-toggle" data-toggle="dropdown">Topic
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li data-match-route="/topic"><a ng-href="#/topic">Create</a></li>
-							<li data-match-route="/topicview"><a ng-href="#/topicview">View</a></li>
+							<li><a ng-href="#/topic">Create</a></li>
+							<li><a ng-href="#/topicview">View</a></li>
 						</ul>
 					</li>
-					<li class="dropdown">
+					<li class="dropdown" data-match-route="/spam-*">
 						<a class="dropdown-toggle" data-toggle="dropdown">
 							Spam<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-							<li data-match-route="/spam-vokes"><a ng-href="#/spam-vokes">Vokes</a></li>
-							<li data-match-route="/spam-topics"><a ng-href="#/spam-topics">Topics</a></li>
+							<li><a ng-href="#/spam-vokes">Vokes</a></li>
+							<li><a ng-href="#/spam-topics">Topics</a></li>
 						</ul>
 					</li>
 					<li data-match-route="/vokers"><a ng-href="#/vokers">Vokers</a></li>
