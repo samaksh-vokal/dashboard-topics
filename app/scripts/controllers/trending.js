@@ -1,5 +1,6 @@
 angular.module('okTalkApp')
     .controller('TrendingCtrl', ['$scope', 'apiFactory', function ($scope, apiFactory) {
+        "use strict";
         angular.element(document).ready(function () {
             // $scope.init();
             var myLatlng = new google.maps.LatLng(20.5937, 78.9629);

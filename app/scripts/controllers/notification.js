@@ -1,6 +1,7 @@
 
 angular.module('okTalkApp')
   .controller('NotificationCtrl', ['$scope', 'apiFactory', function ($scope, apiFactory) {
+    "use strict";
     angular.element(document).ready(function () {
       $scope.init();
     });
@@ -24,7 +25,7 @@ angular.module('okTalkApp')
             }
             return [year, month, day].join('-');
         }
-              
+
 
         $scope.dateOptions = {
             formatYear: 'yy',
