@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-xs-12 col-sm-2">
     <div class="form-group">
-      <label for="activate_from" class="col-sm-6 control-label">from date</label>
+      <label for="activate_from" class="col-sm-6 control-label">From</label>
       <div class="col-sm-12">
         <p class="input-group">
           <input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt" is-open="popup1.opened" datepicker-options="dateOptions"
@@ -16,7 +16,7 @@
   </div>
   <div class="col-xs-12 col-sm-2">
     <div class="form-group">
-      <label for="activate_from" class="col-sm-6 control-label"> to date</label>
+      <label for="activate_from" class="col-sm-6 control-label">To</label>
       <div class="col-sm-12">
         <p class="input-group">
           <input type="text" class="form-control" uib-datepicker-popup ng-model="channel.dt2" is-open="popup2.opened" datepicker-options="dateOptions"
@@ -31,21 +31,22 @@
   <div class="col-xs-12 col-sm-1">
     <label for="inputLang" class="col-sm-2 control-label">Language</label>
     <div class="col-sm-12">
-      <select ng-model="lang" ng-options="x for x in languages">
+      <select ng-model="lang" ng-options="x for x in languages" class="form-control">
       </select>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-1">
-    <label for="inputLang" class="col-sm-2 control-label">type</label>
+  <div class="col-xs-12 col-sm-2">
+    <label for="inputLang" class="col-sm-2 control-label">Type</label>
     <div class="col-sm-12">
-      <select ng-model="type" ng-options="x for x in types">
+      <select ng-model="type" ng-options="x for x in types" class="form-control">
       </select>
     </div>
   </div>
   <div class="col-xs-12 col-sm-2 topMargin">
     <button type="button" class="btn btn-primary" ng-click="getData('reported')">Submit</button>
+    Total:{{ reports.length }}
   </div>
-  <div class="col-xs-12 col-sm-3">
+  <div class="col-xs-12 col-sm-3 topMargin">
     <input type="text" class="form-control " ng-model="queryBar" placeholder="Search Vokes">
   </div>
 </div>

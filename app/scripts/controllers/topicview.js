@@ -133,6 +133,12 @@ angular.module('okTalkApp')
     };
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy-MM-dd', 'dd.MM.yyyy', 'shortDate'];
     $scope.format = $scope.formats[1];
+    var now = new Date();
+    var yesterday = new Date();
+    yesterday.setDate(now.getDate() - 1);
+    $scope.channel = {};
+    $scope.channel.dt = yesterday;
+    $scope.channel.dt2 = now;
 
     $scope.popup2 = {
       opened: false
