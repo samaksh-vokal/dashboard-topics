@@ -123,6 +123,13 @@ angular.module('okTalkApp')
         $scope.popup1 = {
             opened: false
         };
+        var now = new Date();
+        var yesterday = new Date();
+        yesterday.setDate(now.getDate() - 1);
+        $scope.channel = {};
+        $scope.channel.dt = yesterday;
+        $scope.channel.dt2 = now;
+
         $scope.getPeople = function(reporters) {
             var x = [];
             var k = '';
@@ -223,6 +230,12 @@ angular.module('okTalkApp')
             }
             return [year, month, day].join('-');
         }
+        var now = new Date();
+        var yesterday = new Date();
+        yesterday.setDate(now.getDate() - 1);
+        $scope.channel = {};
+        $scope.channel.dt = yesterday;
+        $scope.channel.dt2 = now;
 
         $scope.show = function(item) {
             $scope.box1 = item === "reported" ? true : false;

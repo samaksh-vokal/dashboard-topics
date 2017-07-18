@@ -80,16 +80,16 @@ angular.module('okTalkApp')
             $scope.box2 = item === "spam" ? true : false;
         };
 
-        $scope.doAction = function(status, user, gender) {
-            var url = baseURL + "/approve/user/"+ user  +"/status/" + status;
-            apiFactory.doUpdateCall(url, {}).then(function(response) {
+        $scope.doAction = function(status, user, gender, content_id) {
+            var url = baseURL + "approve/user/"+ user +"/status/" + status;
+            apiFactory.doUpdateCall(url, {"content_id": content_id}).then(function(response) {
                 console.log(response.data);
                 $scope.getData();
             });
         };
 
         $scope.updateGender = function(user, gender) {
-            var url = baseURL + "/approve/user/" + user +  "/gender/" + gender;
+            var url = baseURL + "approve/user/" + user +  "/gender/" + gender;
             apiFactory.doUpdateCall(url, {}).then(function(response) {
                 console.log(response.data);
                 $scope.getData();
@@ -113,6 +113,5 @@ angular.module('okTalkApp')
             var status = 200 + item.report % 10;
             var k = new reqObj(item.content_id, item.owner_id, status);
             console.log(k);
-
         };
     }]);

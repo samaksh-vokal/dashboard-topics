@@ -41,6 +41,7 @@
   </div>
   <div class="col-xs-12 col-sm-2 topMargin">
     <button type="button" class="btn btn-primary" ng-click="getData('reported')">Submit</button>
+    Total: {{ jokers.length }}
   </div>
   <div class="col-xs-12 col-sm-3 topMargin">
     <input type="text" class="form-control " ng-model="queryBar" placeholder="Search Vokes">
@@ -59,42 +60,40 @@
             <th>Lang</th>
             <th>Title</th>
             <th>Voke</th>
-            <th>status</th>
             <th>Gender</th>
             <th>Action</th>
             <th>setGender</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="x in jokers | filter:queryBar ">
-            <td>{{format(x.name)}} / {{x.handle}}</td>
+          <tr ng-repeat="x in jokers | filter:queryBar | orderBy:'created_at':true">
+            <td>{{ format(x.name)}} / {{x.handle }}</td>
             <td><img src="{{ x.profile_image || 'https://vignette1.wikia.nocookie.net/sote-rp/images/c/c4/User-placeholder.png/revision/latest?cb=20150624004222' }} " alt="profile image" height="100" width="120" /></td>
             <td><img src="{{ x.img || '' }} " alt="topic image" height="100" width="120" /></td>
             <td>{{ x.created_at | date:'yyyy-MM-dd HH:mm:ss' || '' }}</td>
-            <td>{{x.lang}}</td>
-            <td>{{x.title}}</td>
+            <td>{{ x.lang }}</td>
+            <td>{{ x.title }}</td>
             <td>
               <audio id="audio+{{x.payload}}" preload="metadata" type="audio/mp3" controls="controls">
                 <source ng-src="{{x.payload}}" type="audio/mp3" /> Your browser doesn't support the HTML audio tag. Be sad.
               </audio>
             </td>
-            <td>{{x.status}}</td>
             <td>
-              <select ng-model="x.gender" ng-options="x for x in genders">{{x.gender}}</td>
+              <select ng-model="x.gender" ng-options="x for x in genders">{{ x.gender }}</td>
             <td ng-show="box1" class="action1">
               <div class="buttons">
-                <button class="btn btn-primary" id="{{ 'spamBtn-' + $index }}" ng-click="doAction(1,x.owner_id, x.gender)">Approve</button>
-                <button class="btn btn-primary" id="{{ 'abusiveBtn-' + $index }}" ng-click="doAction(2,x.owner_id, x.gender)">Spam</button>
+                <button class="btn btn-primary" id="{{ 'spamBtn-' + $index }}" ng-click="doAction(1,x.owner_id, x.gender, x.content_id)">Approve</button>
+                <button class="btn btn-primary" id="{{ 'abusiveBtn-' + $index }}" ng-click="doAction(2,x.owner_id, x.gender, x.content_id)">Spam</button>
               </div>
             </td>
             <td ng-show="box2" class="action2">
               <div class="buttons">
-                <button class="btn btn-primary" id="{{ 'abusiveBtn -' + $index }}" ng-click="doAction(1,x.owner_id, x.gender)">Not spam</button>
+                <button class="btn btn-primary" id="{{ 'abusiveBtn -' + $index }}" ng-click="doAction(1,x.owner_id, x.gender, x.content_id)">Not spam</button>
               </div>
             </td>
             <td ng-show="box3" class="action3">
               <div class="buttons">
-                <button class="btn btn-primary" id="{{ 'spamBtn -' + $index }}" ng-click="doAction(2,x.owner_id, x.gender)">Spam</button>
+                <button class="btn btn-primary" id="{{ 'spamBtn -' + $index }}" ng-click="doAction(2,x.owner_id, x.gender, x.content_id)">Spam</button>
               </div>
             </td>
             <td>
